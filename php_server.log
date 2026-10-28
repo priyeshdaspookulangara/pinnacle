@@ -1,0 +1,109 @@
+[Wed Oct 28 23:03:40 2026] PHP 8.3.6 Development Server (http://127.0.0.1:8000) started
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39576 Accepted
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39576 [200]: HEAD /index.php?page=login
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39576 Closing
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39586 Accepted
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39586 [200]: GET /index.php?page=login
+[Wed Oct 28 23:03:55 2026] 127.0.0.1:39586 Closing
+[Wed Oct 28 23:04:53 2026] 127.0.0.1:55990 Accepted
+[Wed Oct 28 23:04:53 2026] 127.0.0.1:55990 [302]: GET /index.php?page=admin_dashboard
+[Wed Oct 28 23:04:53 2026] 127.0.0.1:55990 Closing
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55244 Accepted
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55244 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55244 Closing
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55248 Accepted
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55248 [302]: POST /index.php?action=login
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55248 Closing
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55252 Accepted
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55252 [302]: GET /index.php?page=admin_dashboard
+[Wed Oct 28 23:05:11 2026] 127.0.0.1:55252 Closing
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45736 Accepted
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45736 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45736 Closing
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45746 Accepted
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45746 [302]: POST /index.php?action=login
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45746 Closing
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45758 Accepted
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45758 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:30 2026] 127.0.0.1:45758 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55330 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55330 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55330 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55334 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55334 [302]: POST /index.php?action=login
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55334 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55350 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55350 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55350 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55360 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55360 [302]: GET /index.php?page=admin_settings
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55360 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55374 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55374 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55374 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55384 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55384 [302]: GET /index.php?action=export_csv&type=ledger
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55384 Closing
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55392 Accepted
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55392 [200]: GET /index.php?page=login
+[Wed Oct 28 23:05:48 2026] 127.0.0.1:55392 Closing
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47624 Accepted
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47624 [200]: GET /index.php?page=login
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47624 Closing
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47640 Accepted
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47640 [302]: POST /index.php?action=login
+[Wed Oct 28 23:06:05 2026] 127.0.0.1:47640 Closing
+[Wed Oct 28 23:07:00 2026] 127.0.0.1:39140 Accepted
+[Wed Oct 28 23:07:00 2026] 127.0.0.1:39140 [200]: GET /index.php?page=login
+[Wed Oct 28 23:07:00 2026] 127.0.0.1:39140 Closing
+[Wed Oct 28 23:07:00 2026] 127.0.0.1:39142 Accepted
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39142 [302]: POST /index.php?action=login
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39142 Closing
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39148 Accepted
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39148 [200]: GET /index.php?page=admin_dashboard
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39148 Closing
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39162 Accepted
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39162 [200]: GET /index.php?page=admin_settings
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39162 Closing
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39168 Accepted
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39168 [200]: GET /index.php?action=export_csv&type=ledger
+[Wed Oct 28 23:07:01 2026] 127.0.0.1:39168 Closing
+[Wed Oct 28 23:08:54 2026] 127.0.0.1:60286 Accepted
+[Wed Oct 28 23:08:54 2026] 127.0.0.1:60286 [200]: GET /index.php?page=login
+[Wed Oct 28 23:08:54 2026] 127.0.0.1:60286 Closing
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60300 Accepted
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60300 [302]: POST /index.php?action=login
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60300 Closing
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60306 Accepted
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60306 [200]: GET /index.php?page=admin_dashboard
+[Wed Oct 28 23:08:56 2026] 127.0.0.1:60306 Closing
+[Wed Oct 28 23:08:57 2026] 127.0.0.1:60318 Accepted
+[Wed Oct 28 23:08:57 2026] 127.0.0.1:60318 [200]: GET /index.php?page=admin_settings
+[Wed Oct 28 23:08:57 2026] 127.0.0.1:60318 Closing
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60328 Accepted
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60328 [302]: GET /index.php?action=logout
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60328 Closing
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60344 Accepted
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60344 [200]: GET /index.php?page=login
+[Wed Oct 28 23:08:58 2026] 127.0.0.1:60344 Closing
+[Wed Oct 28 23:08:59 2026] 127.0.0.1:60350 Accepted
+[Wed Oct 28 23:08:59 2026] 127.0.0.1:60350 [200]: GET /index.php?page=register&ref=admin
+[Wed Oct 28 23:08:59 2026] 127.0.0.1:60350 Closing
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60352 Accepted
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60352 [302]: POST /index.php?action=register
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60352 Closing
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60358 Accepted
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60358 [200]: GET /index.php?page=dashboard
+[Wed Oct 28 23:09:00 2026] 127.0.0.1:60358 Closing
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40420 Accepted
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40420 [302]: POST /index.php?action=purchase_package
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40420 Closing
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40434 Accepted
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40434 [200]: GET /index.php?page=dashboard
+[Wed Oct 28 23:09:01 2026] 127.0.0.1:40434 Closing
+[Wed Oct 28 23:09:02 2026] 127.0.0.1:40436 Accepted
+[Wed Oct 28 23:09:02 2026] 127.0.0.1:40436 [200]: GET /index.php?page=genealogy
+[Wed Oct 28 23:09:02 2026] 127.0.0.1:40436 Closing
+[Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 Accepted
+[Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 [200]: GET /index.php?page=ledger
+[Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 Closing
