@@ -116,3 +116,6 @@
 [Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 Accepted
 [Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 [200]: GET /index.php?page=admin_dashboard
 [Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 Closing
+[Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 Accepted
+[Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 [302]: GET /index.php?action=login
+[Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 Closing
