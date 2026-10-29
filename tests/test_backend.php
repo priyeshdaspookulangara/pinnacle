@@ -5,6 +5,7 @@ require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../src/Models/User.php';
 require_once __DIR__ . '/../src/Models/Package.php';
 require_once __DIR__ . '/../src/Services/MatrixService.php';
+require_once __DIR__ . '/../src/Services/PdfService.php';
 
 echo "=== STARTING PINNACLE HUNT BACKEND TEST SUITE ===\n\n";
 
@@ -91,5 +92,13 @@ $stmtTier2->execute([$userAId]);
 $pkg2 = $stmtTier2->fetch();
 assert(!empty($pkg2), "User A should now be enrolled in Package Tier 2!");
 echo "User A Tier 2 Status: {$pkg2['status']}\n";
+
+// Step 5: Testing PDF Brochure Generation Service
+echo "\n5. Testing PDF Business Plan Brochure Generation...\n";
+$pdfService = new PdfService();
+$pdfBinary = $pdfService->generateBusinessPlanBrochure($userAData);
+assert(!empty($pdfBinary), "PDF Binary content should not be empty");
+assert(strpos($pdfBinary, '%PDF-') === 0, "PDF Content must start with standard PDF header '%PDF-'");
+echo "PDF Brochure Generated Successfully! (Byte Length: " . strlen($pdfBinary) . " bytes)\n";
 
 echo "\n=== ALL BACKEND TESTS PASSED SUCCESSFULLY! ===\n";

@@ -33,6 +33,9 @@ if ($action === 'login') {
 } elseif ($action === 'export_csv') {
     $adminController = new AdminController();
     $adminController->exportCsv();
+} elseif ($action === 'download_pdf' || $action === 'download_brochure') {
+    $userController = new UserController();
+    $userController->downloadPdfBrochure();
 }
 
 // Page Handlers
@@ -49,6 +52,9 @@ if ($page === 'login') {
 } elseif ($page === 'ledger') {
     $userController = new UserController();
     $userController->ledger();
+} elseif ($page === 'business_plan' || $page === 'brochure') {
+    $userController = new UserController();
+    $userController->businessPlan();
 } elseif ($page === 'admin_dashboard') {
     $adminController = new AdminController();
     $adminController->dashboard();

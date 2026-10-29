@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Models/Package.php';
 require_once __DIR__ . '/../Services/MatrixService.php';
+require_once __DIR__ . '/../Services/PdfService.php';
 
 class UserController {
     private User $userModel;
@@ -193,6 +194,29 @@ class UserController {
         }
 
         header("Location: index.php?page=ledger");
+        exit();
+    }
+
+    public function businessPlan() {
+        $user = currentUser();
+        $packages = $this->packageModel->getAllActive();
+
+        require_once __DIR__ . '/../../views/user/business_plan.php';
+    }
+
+    public function downloadPdfBrochure() {
+        $user = currentUser();
+        $pdfService = new PdfService();
+        $pdfContent = $pdfService->generateBusinessPlanBrochure($user);
+
+        if (PHP_SAPI !== 'cli') {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="Pinnacle_Hunt_Business_Plan.pdf"');
+            header('Content-Length: ' . strlen($pdfContent));
+            header('Cache-Control: private, max-age=0, must-revalidate');
+            header('Pragma: public');
+        }
+        echo $pdfContent;
         exit();
     }
 }

@@ -149,8 +149,8 @@ class AdminController {
             if ($w && $w['status'] === 'pending') {
                 $this->db->beginTransaction();
                 try {
-                    $stmtUp = $this->db->prepare("UPDATE withdrawals SET status = ?, processed_at = NOW() WHERE id = ?");
-                    $stmtUp->execute([$status, $withdrawalId]);
+                    $stmtUp = $this->db->prepare("UPDATE withdrawals SET status = ?, processed_at = ? WHERE id = ?");
+                    $stmtUp->execute([$status, date('Y-m-d H:i:s'), $withdrawalId]);
 
                     // If rejected, refund wallet balance
                     if ($status === 'rejected') {

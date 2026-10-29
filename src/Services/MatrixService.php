@@ -38,12 +38,15 @@ class MatrixService {
         $this->db->beginTransaction();
         try {
             // 1. Record User Package
-            $stmtPkg = $this->db->prepare("
-                INSERT INTO user_packages (user_id, package_id, status)
-                VALUES (?, ?, 'active')
-                ON DUPLICATE KEY UPDATE status = 'active'
-            ");
-            $stmtPkg->execute([$userId, $packageId]);
+            $stmtCheck = $this->db->prepare("SELECT id FROM user_packages WHERE user_id = ? AND package_id = ?");
+            $stmtCheck->execute([$userId, $packageId]);
+            if ($existingPkg = $stmtCheck->fetch()) {
+                $stmtPkg = $this->db->prepare("UPDATE user_packages SET status = 'active' WHERE id = ?");
+                $stmtPkg->execute([$existingPkg['id']]);
+            } else {
+                $stmtPkg = $this->db->prepare("INSERT INTO user_packages (user_id, package_id, status) VALUES (?, ?, 'active')");
+                $stmtPkg->execute([$userId, $packageId]);
+            }
 
             // 2. BFS Placement Algorithm for Company-Wide 3-Matrix
             $targetParent = $this->findBfsPlacementSpot($packageId);
