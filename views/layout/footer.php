@@ -14,6 +14,10 @@
     </div>
 </footer>
 
+<?php if (isLoggedIn()): ?>
+</div> <!-- End Outer Wrapper .md:ml-64 -->
+<?php endif; ?>
+
 <script>
     lucide.createIcons();
 

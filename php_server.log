@@ -119,3 +119,111 @@
 [Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 Accepted
 [Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 [302]: GET /index.php?action=login
 [Thu Oct 29 01:19:35 2026] 127.0.0.1:49016 Closing
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41618 Accepted
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41618 [200]: GET /index.php?page=login
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41618 Closing
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41634 Accepted
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41634 [302]: POST /index.php?action=login
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41634 Closing
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41650 Accepted
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41650 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 03:21:16 2026] 127.0.0.1:41650 Closing
+[Thu Oct 29 03:21:52 2026] 127.0.0.1:53680 Accepted
+[Thu Oct 29 03:21:52 2026] 127.0.0.1:53680 [200]: GET /index.php?page=login
+[Thu Oct 29 03:21:52 2026] 127.0.0.1:53680 Closing
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41636 Accepted
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41636 [302]: POST /index.php?action=login
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41636 Closing
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41646 Accepted
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41646 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 03:21:54 2026] 127.0.0.1:41646 Closing
+[Thu Oct 29 03:21:55 2026] 127.0.0.1:41652 Accepted
+[Thu Oct 29 03:21:55 2026] 127.0.0.1:41652 [200]: GET /index.php?page=admin_settings
+[Thu Oct 29 03:21:55 2026] 127.0.0.1:41652 Closing
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41666 Accepted
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41666 [302]: GET /index.php?action=logout
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41666 Closing
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41676 Accepted
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41676 [200]: GET /index.php?page=login
+[Thu Oct 29 03:21:56 2026] 127.0.0.1:41676 Closing
+[Thu Oct 29 03:21:57 2026] 127.0.0.1:41690 Accepted
+[Thu Oct 29 03:21:57 2026] 127.0.0.1:41690 [200]: GET /index.php?page=register&ref=admin
+[Thu Oct 29 03:21:57 2026] 127.0.0.1:41690 Closing
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41700 Accepted
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41700 [302]: POST /index.php?action=register
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41700 Closing
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41704 Accepted
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41704 [200]: GET /index.php?page=dashboard
+[Thu Oct 29 03:21:58 2026] 127.0.0.1:41704 Closing
+[Thu Oct 29 03:23:06 2026] 127.0.0.1:54244 Accepted
+[Thu Oct 29 03:23:06 2026] 127.0.0.1:54244 [200]: GET /index.php?page=login
+[Thu Oct 29 03:23:06 2026] 127.0.0.1:54244 Closing
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54248 Accepted
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54248 [302]: POST /index.php?action=login
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54248 Closing
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54252 Accepted
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54252 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 03:23:07 2026] 127.0.0.1:54252 Closing
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54268 Accepted
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54268 [200]: GET /index.php?page=admin_settings
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54268 Closing
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54276 Accepted
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54276 [302]: GET /index.php?action=logout
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54276 Closing
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54280 Accepted
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54280 [200]: GET /index.php?page=login
+[Thu Oct 29 03:23:09 2026] 127.0.0.1:54280 Closing
+[Thu Oct 29 03:23:10 2026] 127.0.0.1:54290 Accepted
+[Thu Oct 29 03:23:10 2026] 127.0.0.1:54290 [200]: GET /index.php?page=register&ref=admin
+[Thu Oct 29 03:23:10 2026] 127.0.0.1:54290 Closing
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54300 Accepted
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54300 [302]: POST /index.php?action=register
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54300 Closing
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54312 Accepted
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54312 [200]: GET /index.php?page=dashboard
+[Thu Oct 29 03:23:11 2026] 127.0.0.1:54312 Closing
+[Thu Oct 29 03:23:13 2026] 127.0.0.1:54320 Accepted
+[Thu Oct 29 03:23:13 2026] 127.0.0.1:54320 [200]: GET /index.php?page=genealogy
+[Thu Oct 29 03:23:13 2026] 127.0.0.1:54320 Closing
+[Thu Oct 29 03:23:15 2026] 127.0.0.1:46812 Accepted
+[Thu Oct 29 03:23:15 2026] 127.0.0.1:46812 [200]: GET /index.php?page=ledger
+[Thu Oct 29 03:23:15 2026] 127.0.0.1:46812 Closing
+[Thu Oct 29 03:26:15 2026] 127.0.0.1:36982 Accepted
+[Thu Oct 29 03:26:15 2026] 127.0.0.1:36982 [200]: GET /index.php?page=login
+[Thu Oct 29 03:26:15 2026] 127.0.0.1:36982 Closing
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:36992 Accepted
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:36992 [302]: POST /index.php?action=login
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:36992 Closing
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:37000 Accepted
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:37000 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 03:26:16 2026] 127.0.0.1:37000 Closing
+[Thu Oct 29 03:26:18 2026] 127.0.0.1:37006 Accepted
+[Thu Oct 29 03:26:18 2026] 127.0.0.1:37006 [200]: GET /index.php?page=admin_settings
+[Thu Oct 29 03:26:18 2026] 127.0.0.1:37006 Closing
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37016 Accepted
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37016 [302]: GET /index.php?action=logout
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37016 Closing
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37022 Accepted
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37022 [200]: GET /index.php?page=login
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37022 Closing
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37026 Accepted
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37026 [200]: GET /index.php?page=register&ref=admin
+[Thu Oct 29 03:26:19 2026] 127.0.0.1:37026 Closing
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37040 Accepted
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37040 [302]: POST /index.php?action=register
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37040 Closing
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37052 Accepted
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37052 [200]: GET /index.php?page=dashboard
+[Thu Oct 29 03:26:20 2026] 127.0.0.1:37052 Closing
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37062 Accepted
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37062 [302]: POST /index.php?action=purchase_package
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37062 Closing
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37076 Accepted
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37076 [200]: GET /index.php?page=dashboard
+[Thu Oct 29 03:26:22 2026] 127.0.0.1:37076 Closing
+[Thu Oct 29 03:26:23 2026] 127.0.0.1:37092 Accepted
+[Thu Oct 29 03:26:23 2026] 127.0.0.1:37092 [200]: GET /index.php?page=genealogy
+[Thu Oct 29 03:26:23 2026] 127.0.0.1:37092 Closing
+[Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 Accepted
+[Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 [200]: GET /index.php?page=ledger
+[Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 Closing
