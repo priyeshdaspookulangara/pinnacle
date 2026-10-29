@@ -136,13 +136,13 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('reserve_percentage', '25.00', 'Percentage of earnings directed to reserve pool for auto-upgrades'),
 ('auto_upgrade_milestone_level', '3', 'Level completion milestone (1-7) that triggers package auto-progression check'),
 ('direct_sponsor_commission_percent', '20.00', 'Global direct referral commission percentage'),
-('matrix_level_1_percent', '5.00', 'Matrix level 1 payout percentage'),
-('matrix_level_2_percent', '4.00', 'Matrix level 2 payout percentage'),
-('matrix_level_3_percent', '3.00', 'Matrix level 3 payout percentage'),
-('matrix_level_4_percent', '2.00', 'Matrix level 4 payout percentage'),
-('matrix_level_5_percent', '1.00', 'Matrix level 5 payout percentage'),
-('matrix_level_6_percent', '1.00', 'Matrix level 6 payout percentage'),
-('matrix_level_7_percent', '1.00', 'Matrix level 7 payout percentage');
+('matrix_level_1_percent', '12.50', 'Matrix level 1 payout percentage'),
+('matrix_level_2_percent', '10.00', 'Matrix level 2 payout percentage'),
+('matrix_level_3_percent', '7.50', 'Matrix level 3 payout percentage'),
+('matrix_level_4_percent', '5.00', 'Matrix level 4 payout percentage'),
+('matrix_level_5_percent', '2.50', 'Matrix level 5 payout percentage'),
+('matrix_level_6_percent', '1.25', 'Matrix level 6 payout percentage'),
+('matrix_level_7_percent', '1.25', 'Matrix level 7 payout percentage');
 
 -- Create Default Company Admin User (Password: Admin@123456)
 -- Password hash generated with password_hash('Admin@123456', PASSWORD_BCRYPT)

@@ -63,13 +63,13 @@ class AdminController {
                 'reserve_percentage' => (float)($_POST['reserve_percentage'] ?? 25.00),
                 'auto_upgrade_milestone_level' => (int)($_POST['auto_upgrade_milestone_level'] ?? 3),
                 'direct_sponsor_commission_percent' => (float)($_POST['direct_sponsor_commission_percent'] ?? 20.00),
-                'matrix_level_1_percent' => (float)($_POST['matrix_level_1_percent'] ?? 5.00),
-                'matrix_level_2_percent' => (float)($_POST['matrix_level_2_percent'] ?? 4.00),
-                'matrix_level_3_percent' => (float)($_POST['matrix_level_3_percent'] ?? 3.00),
-                'matrix_level_4_percent' => (float)($_POST['matrix_level_4_percent'] ?? 2.00),
-                'matrix_level_5_percent' => (float)($_POST['matrix_level_5_percent'] ?? 1.00),
-                'matrix_level_6_percent' => (float)($_POST['matrix_level_6_percent'] ?? 1.00),
-                'matrix_level_7_percent' => (float)($_POST['matrix_level_7_percent'] ?? 1.00),
+                'matrix_level_1_percent' => (float)($_POST['matrix_level_1_percent'] ?? 12.50),
+                'matrix_level_2_percent' => (float)($_POST['matrix_level_2_percent'] ?? 10.00),
+                'matrix_level_3_percent' => (float)($_POST['matrix_level_3_percent'] ?? 7.50),
+                'matrix_level_4_percent' => (float)($_POST['matrix_level_4_percent'] ?? 5.00),
+                'matrix_level_5_percent' => (float)($_POST['matrix_level_5_percent'] ?? 2.50),
+                'matrix_level_6_percent' => (float)($_POST['matrix_level_6_percent'] ?? 1.25),
+                'matrix_level_7_percent' => (float)($_POST['matrix_level_7_percent'] ?? 1.25),
             ]);
 
             // Update packages prices & commission rates if submitted
