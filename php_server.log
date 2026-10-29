@@ -107,3 +107,12 @@
 [Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 Accepted
 [Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 [200]: GET /index.php?page=ledger
 [Wed Oct 28 23:09:04 2026] 127.0.0.1:40438 Closing
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38716 Accepted
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38716 [200]: GET /index.php?page=login
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38716 Closing
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38724 Accepted
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38724 [302]: POST /index.php?action=login
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38724 Closing
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 Accepted
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 00:44:11 2026] 127.0.0.1:38740 Closing

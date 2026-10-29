@@ -78,12 +78,21 @@
                 <?php endif; ?>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="hidden sm:flex flex-col text-right">
-                    <span class="text-sm font-semibold text-gray-200"><?= htmlspecialchars($user['full_name']) ?></span>
-                    <span class="text-xs text-brand-400 font-mono">@<?= htmlspecialchars($user['username']) ?> (<?= strtoupper($user['role']) ?>)</span>
+            <div class="flex items-center gap-3">
+                <?php
+                    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                    $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+                    $headerRefUrl = "{$protocol}://{$host}/index.php?page=register&ref=" . urlencode($user['username']);
+                    $headerShareText = urlencode("Join Pinnacle Hunt - high-performance 3-Matrix platform! Register using my link: " . $headerRefUrl);
+                ?>
+                <button id="headerShareBtn" onclick="copyToClipboard('<?= htmlspecialchars($headerRefUrl) ?>', 'headerShareBtn')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-500 hover:bg-brand-600 text-black shadow-md shadow-brand-500/20 transition flex items-center gap-1.5">
+                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Copy Joining Link
+                </button>
+                <div class="hidden lg:flex flex-col text-right">
+                    <span class="text-xs font-semibold text-gray-200"><?= htmlspecialchars($user['full_name']) ?></span>
+                    <span class="text-[10px] text-brand-400 font-mono">@<?= htmlspecialchars($user['username']) ?></span>
                 </div>
-                <a href="/index.php?action=logout" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 hover:bg-red-500/20 hover:text-red-400 border border-gray-700 hover:border-red-500/30 transition flex items-center gap-1">
+                <a href="/index.php?action=logout" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-red-500/20 hover:text-red-400 border border-gray-700 hover:border-red-500/30 transition flex items-center gap-1">
                     <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Logout
                 </a>
             </div>
