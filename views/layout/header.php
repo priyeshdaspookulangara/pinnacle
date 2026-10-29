@@ -105,6 +105,9 @@
                 <a href="index.php?page=ledger" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'ledger' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="wallet" class="w-4 h-4"></i> Ledger & Payouts
                 </a>
+                <a href="index.php?page=business_plan" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'business_plan' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Business Plan
+                </a>
             <?php endif; ?>
         </nav>
     </div>
@@ -180,6 +183,7 @@
                         <a href="index.php?page=referrals" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="users-round" class="w-5 h-5"></i> My Referrals</a>
                         <a href="index.php?page=genealogy" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="git-fork" class="w-5 h-5"></i> Matrix Downline</a>
                         <a href="index.php?page=ledger" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="wallet" class="w-5 h-5"></i> Ledger & Payouts</a>
+                        <a href="index.php?page=business_plan" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="file-text" class="w-5 h-5"></i> Business Plan</a>
                     <?php endif; ?>
                 </nav>
             </div>
