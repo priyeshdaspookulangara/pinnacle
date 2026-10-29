@@ -46,6 +46,9 @@ if ($page === 'login') {
 } elseif ($page === 'genealogy') {
     $userController = new UserController();
     $userController->genealogy();
+} elseif ($page === 'referrals') {
+    $userController = new UserController();
+    $userController->referrals();
 } elseif ($page === 'ledger') {
     $userController = new UserController();
     $userController->ledger();

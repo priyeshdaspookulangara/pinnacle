@@ -134,6 +134,24 @@ class UserController {
         require_once __DIR__ . '/../../views/user/ledger.php';
     }
 
+    public function referrals() {
+        $user = currentUser();
+
+        // Get direct referrals sponsored by current user
+        $stmtRef = $this->db->prepare("
+            SELECT u.*,
+                   (SELECT COUNT(*) FROM user_packages up WHERE up.user_id = u.id AND up.status = 'active') as active_packages,
+                   (SELECT SUM(c.amount) FROM commissions c WHERE c.user_id = ? AND c.source_user_id = u.id) as total_generated_comm
+            FROM users u
+            WHERE u.sponsor_id = ?
+            ORDER BY u.id DESC
+        ");
+        $stmtRef->execute([$user['id'], $user['id']]);
+        $referrals = $stmtRef->fetchAll();
+
+        require_once __DIR__ . '/../../views/user/referrals.php';
+    }
+
     public function requestWithdrawal() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=ledger");

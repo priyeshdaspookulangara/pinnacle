@@ -29,6 +29,8 @@ if (session_status() === PHP_SESSION_NONE) {
     }
 }
 
+define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . ($_SERVER['HTTP_HOST'] ?? 'localhost:8000'));
+
 require_once __DIR__ . '/database.php';
 
 // Helper: Generate CSRF token
