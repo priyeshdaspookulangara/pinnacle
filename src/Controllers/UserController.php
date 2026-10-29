@@ -152,6 +152,13 @@ class UserController {
         require_once __DIR__ . '/../../views/user/referrals.php';
     }
 
+    public function businessPlan() {
+        $user = currentUser();
+        $packages = $this->packageModel->getAllActive();
+
+        require_once __DIR__ . '/../../views/user/business_plan.php';
+    }
+
     public function requestWithdrawal() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=ledger");

@@ -52,6 +52,9 @@ if ($page === 'login') {
 } elseif ($page === 'ledger') {
     $userController = new UserController();
     $userController->ledger();
+} elseif ($page === 'business_plan') {
+    $userController = new UserController();
+    $userController->businessPlan();
 } elseif ($page === 'admin_dashboard') {
     $adminController = new AdminController();
     $adminController->dashboard();
