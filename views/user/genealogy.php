@@ -12,7 +12,7 @@
     <!-- Package Selector Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
         <?php foreach ($packages as $pkg): ?>
-            <a href="/index.php?page=genealogy&package_id=<?= $pkg['id'] ?>" class="px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap <?= $pkg['id'] == $selectedPackageId ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700' ?>">
+            <a href="index.php?page=genealogy&package_id=<?= $pkg['id'] ?>" class="px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap <?= $pkg['id'] == $selectedPackageId ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700' ?>">
                 Tier #<?= $pkg['sort_order'] ?> (<?= formatCurrency($pkg['price']) ?>)
             </a>
         <?php endforeach; ?>

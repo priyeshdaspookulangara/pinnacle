@@ -15,7 +15,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="/index.php?action=register" method="POST" class="space-y-4">
+        <form action="index.php?action=register" method="POST" class="space-y-4">
             <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
 
             <div>

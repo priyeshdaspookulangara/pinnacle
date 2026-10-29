@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<form action="/index.php?action=update_settings" method="POST">
+<form action="index.php?action=update_settings" method="POST">
     <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">

@@ -63,13 +63,13 @@ class UserController {
 
     public function purchasePackage() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /index.php?page=dashboard");
+            header("Location: index.php?page=dashboard");
             exit();
         }
 
         if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
-            $_SESSION['error'] = "Invalid CSRF token.";
-            header("Location: /index.php?page=dashboard");
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=dashboard");
             exit();
         }
 
@@ -83,7 +83,7 @@ class UserController {
             $_SESSION['error'] = $e->getMessage();
         }
 
-        header("Location: /index.php?page=dashboard");
+        header("Location: index.php?page=dashboard");
         exit();
     }
 
@@ -136,13 +136,13 @@ class UserController {
 
     public function requestWithdrawal() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /index.php?page=ledger");
+            header("Location: index.php?page=ledger");
             exit();
         }
 
         if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
-            $_SESSION['error'] = "Invalid CSRF token.";
-            header("Location: /index.php?page=ledger");
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=ledger");
             exit();
         }
 
@@ -152,13 +152,13 @@ class UserController {
 
         if ($amount <= 0) {
             $_SESSION['error'] = "Please enter a valid withdrawal amount.";
-            header("Location: /index.php?page=ledger");
+            header("Location: index.php?page=ledger");
             exit();
         }
 
         if ($amount > (float)$user['wallet_balance']) {
             $_SESSION['error'] = "Insufficient wallet balance.";
-            header("Location: /index.php?page=ledger");
+            header("Location: index.php?page=ledger");
             exit();
         }
 
@@ -192,7 +192,7 @@ class UserController {
             $_SESSION['error'] = "Failed to submit withdrawal: " . $e->getMessage();
         }
 
-        header("Location: /index.php?page=ledger");
+        header("Location: index.php?page=ledger");
         exit();
     }
 }

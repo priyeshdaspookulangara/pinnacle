@@ -11,13 +11,13 @@
 
     <!-- One-Click CSV Export Tools -->
     <div class="flex items-center gap-2 flex-wrap">
-        <a href="/index.php?action=export_csv&type=ledger" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+        <a href="index.php?action=export_csv&type=ledger" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
             <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i> Export Ledger CSV
         </a>
-        <a href="/index.php?action=export_csv&type=commissions" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+        <a href="index.php?action=export_csv&type=commissions" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
             <i data-lucide="download" class="w-4 h-4 text-blue-400"></i> Export Commissions CSV
         </a>
-        <a href="/index.php?action=export_csv&type=withdrawals" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+        <a href="index.php?action=export_csv&type=withdrawals" class="px-3.5 py-2 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
             <i data-lucide="download" class="w-4 h-4 text-amber-400"></i> Export Withdrawals CSV
         </a>
     </div>
@@ -112,7 +112,7 @@
                             <td class="px-4 py-3 text-gray-500 font-sans text-[11px]"><?= $pw['created_at'] ?></td>
                             <td class="px-4 py-3 font-sans">
                                 <div class="flex items-center gap-2">
-                                    <form action="/index.php?action=process_withdrawal" method="POST">
+                                    <form action="index.php?action=process_withdrawal" method="POST">
                                         <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
                                         <input type="hidden" name="withdrawal_id" value="<?= $pw['id'] ?>">
                                         <input type="hidden" name="action" value="approve">
@@ -121,7 +121,7 @@
                                         </button>
                                     </form>
 
-                                    <form action="/index.php?action=process_withdrawal" method="POST">
+                                    <form action="index.php?action=process_withdrawal" method="POST">
                                         <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
                                         <input type="hidden" name="withdrawal_id" value="<?= $pw['id'] ?>">
                                         <input type="hidden" name="action" value="reject">
@@ -145,7 +145,7 @@
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
             <i data-lucide="user-plus" class="w-5 h-5 text-brand-400"></i> New Member Signups
         </h3>
-        <a href="/index.php?page=admin_members" class="text-xs font-semibold text-brand-400 hover:underline">View All Members &rarr;</a>
+        <a href="index.php?page=admin_members" class="text-xs font-semibold text-brand-400 hover:underline">View All Members &rarr;</a>
     </div>
 
     <div class="overflow-x-auto">

@@ -48,13 +48,13 @@ class AdminController {
 
     public function updateSettings() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /index.php?page=admin_settings");
+            header("Location: index.php?page=admin_settings");
             exit();
         }
 
         if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
-            $_SESSION['error'] = "Invalid CSRF token.";
-            header("Location: /index.php?page=admin_settings");
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_settings");
             exit();
         }
 
@@ -88,7 +88,7 @@ class AdminController {
             $_SESSION['error'] = "Failed to update settings: " . $e->getMessage();
         }
 
-        header("Location: /index.php?page=admin_settings");
+        header("Location: index.php?page=admin_settings");
         exit();
     }
 
@@ -99,13 +99,13 @@ class AdminController {
 
     public function processWithdrawal() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /index.php?page=admin_dashboard");
+            header("Location: index.php?page=admin_dashboard");
             exit();
         }
 
         if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
-            $_SESSION['error'] = "Invalid CSRF token.";
-            header("Location: /index.php?page=admin_dashboard");
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_dashboard");
             exit();
         }
 
@@ -148,7 +148,7 @@ class AdminController {
             }
         }
 
-        header("Location: /index.php?page=admin_dashboard");
+        header("Location: index.php?page=admin_dashboard");
         exit();
     }
 

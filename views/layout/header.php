@@ -55,7 +55,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-3">
-                <a href="/index.php" class="flex items-center gap-2 group">
+                <a href="index.php" class="flex items-center gap-2 group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center font-extrabold text-black text-xl shadow-lg group-hover:scale-105 transition-transform">
                         P
                     </div>
@@ -67,14 +67,14 @@
 
             <?php if (isLoggedIn()): $user = currentUser(); ?>
             <div class="hidden md:flex items-center gap-6">
-                <?php if ($user['role'] === 'admin'): ?>
-                    <a href="/index.php?page=admin_dashboard" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Admin Dashboard</a>
-                    <a href="/index.php?page=admin_settings" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="sliders" class="w-4 h-4"></i> Commission Rules</a>
-                    <a href="/index.php?page=admin_members" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="users" class="w-4 h-4"></i> All Members</a>
+                <?php if ($user && $user['role'] === 'admin'): ?>
+                    <a href="index.php?page=admin_dashboard" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Admin Dashboard</a>
+                    <a href="index.php?page=admin_settings" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="sliders" class="w-4 h-4"></i> Commission Rules</a>
+                    <a href="index.php?page=admin_members" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="users" class="w-4 h-4"></i> All Members</a>
                 <?php else: ?>
-                    <a href="/index.php?page=dashboard" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</a>
-                    <a href="/index.php?page=genealogy" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="git-fork" class="w-4 h-4"></i> Matrix Downline</a>
-                    <a href="/index.php?page=ledger" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="wallet" class="w-4 h-4"></i> Ledger & Payouts</a>
+                    <a href="index.php?page=dashboard" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</a>
+                    <a href="index.php?page=genealogy" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="git-fork" class="w-4 h-4"></i> Matrix Downline</a>
+                    <a href="index.php?page=ledger" class="text-sm font-medium hover:text-brand-400 transition flex items-center gap-1.5"><i data-lucide="wallet" class="w-4 h-4"></i> Ledger & Payouts</a>
                 <?php endif; ?>
             </div>
 
@@ -82,24 +82,24 @@
                 <?php
                     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
                     $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
-                    $headerRefUrl = "{$protocol}://{$host}/index.php?page=register&ref=" . urlencode($user['username']);
+                    $headerRefUrl = "{$protocol}://{$host}/index.php?page=register&ref=" . urlencode($user['username'] ?? '');
                     $headerShareText = urlencode("Join Pinnacle Hunt - high-performance 3-Matrix platform! Register using my link: " . $headerRefUrl);
                 ?>
                 <button id="headerShareBtn" onclick="copyToClipboard('<?= htmlspecialchars($headerRefUrl) ?>', 'headerShareBtn')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-500 hover:bg-brand-600 text-black shadow-md shadow-brand-500/20 transition flex items-center gap-1.5">
                     <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Copy Joining Link
                 </button>
                 <div class="hidden lg:flex flex-col text-right">
-                    <span class="text-xs font-semibold text-gray-200"><?= htmlspecialchars($user['full_name']) ?></span>
-                    <span class="text-[10px] text-brand-400 font-mono">@<?= htmlspecialchars($user['username']) ?></span>
+                    <span class="text-xs font-semibold text-gray-200"><?= htmlspecialchars($user['full_name'] ?? '') ?></span>
+                    <span class="text-[10px] text-brand-400 font-mono">@<?= htmlspecialchars($user['username'] ?? '') ?></span>
                 </div>
-                <a href="/index.php?action=logout" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-red-500/20 hover:text-red-400 border border-gray-700 hover:border-red-500/30 transition flex items-center gap-1">
+                <a href="index.php?action=logout" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-red-500/20 hover:text-red-400 border border-gray-700 hover:border-red-500/30 transition flex items-center gap-1">
                     <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Logout
                 </a>
             </div>
             <?php else: ?>
             <div class="flex items-center gap-3">
-                <a href="/index.php?page=login" class="px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition">Sign In</a>
-                <a href="/index.php?page=register" class="px-4 py-2 text-sm font-bold bg-brand-500 hover:bg-brand-600 text-black rounded-xl transition shadow-md shadow-brand-500/20">Get Started</a>
+                <a href="index.php?page=login" class="px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition">Sign In</a>
+                <a href="index.php?page=register" class="px-4 py-2 text-sm font-bold bg-brand-500 hover:bg-brand-600 text-black rounded-xl transition shadow-md shadow-brand-500/20">Get Started</a>
             </div>
             <?php endif; ?>
         </div>

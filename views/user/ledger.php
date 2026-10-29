@@ -24,7 +24,7 @@
                 <div class="flex justify-between text-gray-400"><span>Reserve Pool Hold:</span> <strong class="text-amber-400"><?= formatCurrency($user['reserve_balance']) ?></strong></div>
             </div>
 
-            <form action="/index.php?action=request_withdrawal" method="POST" class="space-y-4">
+            <form action="index.php?action=request_withdrawal" method="POST" class="space-y-4">
                 <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
 
                 <div>

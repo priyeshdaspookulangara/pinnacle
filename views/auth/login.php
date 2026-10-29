@@ -10,7 +10,7 @@
             <p class="text-sm text-gray-400 mt-2">Sign in to manage your Pinnacle Hunt matrix & earnings</p>
         </div>
 
-        <form action="/index.php?action=login" method="POST" class="space-y-5">
+        <form action="index.php?action=login" method="POST" class="space-y-5">
             <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
 
             <div>
