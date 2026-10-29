@@ -97,6 +97,32 @@ class AdminController {
         require_once __DIR__ . '/../../views/admin/members.php';
     }
 
+    public function matrixTree() {
+        require_once __DIR__ . '/../Services/MatrixService.php';
+        $matrixService = new MatrixService();
+
+        $packages = $this->packageModel->getAll();
+        $selectedPackageId = (int)($_GET['package_id'] ?? ($packages[0]['id'] ?? 1));
+
+        // Find system root node or top node for selected package
+        $stmt = $this->db->prepare("
+            SELECT m.id
+            FROM matrix_nodes m
+            WHERE m.package_id = ?
+            ORDER BY m.depth ASC, m.id ASC
+            LIMIT 1
+        ");
+        $stmt->execute([$selectedPackageId]);
+        $rootNodeId = $stmt->fetchColumn();
+
+        $tree = [];
+        if ($rootNodeId) {
+            $tree = $matrixService->getMatrixTree((int)$rootNodeId, $selectedPackageId, 6);
+        }
+
+        require_once __DIR__ . '/../../views/admin/matrix_tree.php';
+    }
+
     public function processWithdrawal() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=admin_dashboard");

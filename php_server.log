@@ -227,3 +227,21 @@
 [Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 Accepted
 [Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 [200]: GET /index.php?page=ledger
 [Thu Oct 29 03:26:24 2026] 127.0.0.1:39546 Closing
+[Thu Oct 29 04:13:08 2026] 127.0.0.1:48976 Accepted
+[Thu Oct 29 04:13:08 2026] 127.0.0.1:48976 [200]: GET /index.php?page=login
+[Thu Oct 29 04:13:08 2026] 127.0.0.1:48976 Closing
+[Thu Oct 29 04:13:59 2026] 127.0.0.1:40058 Accepted
+[Thu Oct 29 04:13:59 2026] 127.0.0.1:40058 [200]: GET /index.php?page=login
+[Thu Oct 29 04:13:59 2026] 127.0.0.1:40058 Closing
+[Thu Oct 29 04:15:09 2026] 127.0.0.1:43634 Accepted
+[Thu Oct 29 04:15:09 2026] 127.0.0.1:43634 [200]: GET /index.php?page=login
+[Thu Oct 29 04:15:09 2026] 127.0.0.1:43634 Closing
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43642 Accepted
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43642 [302]: POST /index.php?action=login
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43642 Closing
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43658 Accepted
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43658 [200]: GET /index.php?page=admin_dashboard
+[Thu Oct 29 04:15:10 2026] 127.0.0.1:43658 Closing
+[Thu Oct 29 04:15:11 2026] 127.0.0.1:43668 Accepted
+[Thu Oct 29 04:15:11 2026] 127.0.0.1:43668 [200]: GET /index.php?page=admin_matrix_tree
+[Thu Oct 29 04:15:11 2026] 127.0.0.1:43668 Closing

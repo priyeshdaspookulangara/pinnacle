@@ -83,6 +83,9 @@
                 <a href="index.php?page=admin_dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_dashboard' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Admin Dashboard
                 </a>
+                <a href="index.php?page=admin_matrix_tree" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_matrix_tree' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
+                    <i data-lucide="git-fork" class="w-4 h-4"></i> Matrix Tree View
+                </a>
                 <a href="index.php?page=admin_settings" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_settings' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="sliders" class="w-4 h-4"></i> Commission Rules
                 </a>
@@ -166,6 +169,7 @@
                 <nav class="space-y-2">
                     <?php if ($user && $user['role'] === 'admin'): ?>
                         <a href="index.php?page=admin_dashboard" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Admin Dashboard</a>
+                    <a href="index.php?page=admin_matrix_tree" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="git-fork" class="w-5 h-5"></i> Matrix Tree View</a>
                         <a href="index.php?page=admin_settings" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="sliders" class="w-5 h-5"></i> Commission Rules</a>
                         <a href="index.php?page=admin_members" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="users" class="w-5 h-5"></i> All Members</a>
                     <?php else: ?>

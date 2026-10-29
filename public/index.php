@@ -58,6 +58,9 @@ if ($page === 'login') {
 } elseif ($page === 'admin_members') {
     $adminController = new AdminController();
     $adminController->members();
+} elseif ($page === 'admin_matrix_tree') {
+    $adminController = new AdminController();
+    $adminController->matrixTree();
 } else {
     // Default Route
     if (isLoggedIn()) {
