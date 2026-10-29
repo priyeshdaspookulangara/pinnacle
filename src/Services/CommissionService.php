@@ -29,7 +29,7 @@ class CommissionService {
         $buyer = $this->userModel->findById($buyerUserId);
         if ($buyer && !empty($buyer['sponsor_id'])) {
             $sponsorId = (int)$buyer['sponsor_id'];
-            $directPercent = (float)($settings['direct_sponsor_commission_percent'] ?? 10.00);
+            $directPercent = (float)($settings['direct_sponsor_commission_percent'] ?? 20.00);
 
             $grossAmount = $packagePrice * ($directPercent / 100.0);
             $reserveAmount = $grossAmount * ($reservePercent / 100.0);
@@ -68,12 +68,12 @@ class CommissionService {
             }
         }
 
-        // 2. Matrix Level Commissions (up to 6 levels up)
+        // 2. Matrix Level Commissions (up to 7 levels up)
         if ($newNodeId) {
             $currentParentId = $this->getParentMatrixNodeId($newNodeId);
             $level = 1;
 
-            while ($currentParentId && $level <= 6) {
+            while ($currentParentId && $level <= 7) {
                 $parentNode = $this->getMatrixNode($currentParentId);
                 if (!$parentNode) {
                     break;

@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             <i data-lucide="sliders" class="w-8 h-8 text-brand-400"></i> Commission & Auto-Progression Configuration
         </h1>
-        <p class="text-xs text-gray-400 mt-1">Dynamic rule builder for reserve pool percentage, 6-level matrix rates, and package pricing</p>
+        <p class="text-xs text-gray-400 mt-1">Dynamic rule builder for reserve pool percentage, 7-level matrix rates, and package pricing</p>
     </div>
 </div>
 
@@ -33,27 +33,27 @@
 
             <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Auto-Upgrade Milestone Level Trigger</label>
-                <input type="number" name="auto_upgrade_milestone_level" value="<?= htmlspecialchars($settings['auto_upgrade_milestone_level'] ?? '3') ?>" min="1" max="6" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
+                <input type="number" name="auto_upgrade_milestone_level" value="<?= htmlspecialchars($settings['auto_upgrade_milestone_level'] ?? '3') ?>" min="1" max="7" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
                 <p class="text-[11px] text-gray-400 mt-1">Matrix depth completion level that triggers automated progression verification.</p>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Global Direct Sponsor Bonus (%)</label>
-                <input type="number" step="0.01" name="direct_sponsor_commission_percent" value="<?= htmlspecialchars($settings['direct_sponsor_commission_percent'] ?? '10.00') ?>" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
+                <input type="number" step="0.01" name="direct_sponsor_commission_percent" value="<?= htmlspecialchars($settings['direct_sponsor_commission_percent'] ?? '20.00') ?>" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
                 <p class="text-[11px] text-gray-400 mt-1">Default percentage rewarded to the direct sponsor upon package purchase.</p>
             </div>
         </div>
 
-        <!-- 6-Level Matrix Commission Percentages -->
+        <!-- 7-Level Matrix Commission Percentages -->
         <div class="glass-card rounded-3xl p-6 border border-gray-800 space-y-4">
             <div>
                 <h3 class="text-lg font-bold text-white mb-1 flex items-center gap-2">
-                    <i data-lucide="layers" class="w-5 h-5 text-brand-400"></i> Matrix Level Commission Rates (Levels 1 to 6)
+                    <i data-lucide="layers" class="w-5 h-5 text-brand-400"></i> Matrix Level Commission Rates (Levels 1 to 7)
                 </h3>
-                <p class="text-xs text-gray-400">Tiered payout percentages awarded to matrix uplines across 6 levels.</p>
+                <p class="text-xs text-gray-400">Tiered payout percentages awarded to matrix uplines across 7 levels.</p>
             </div>
 
-            <?php for ($lvl = 1; $lvl <= 6; $lvl++): ?>
+            <?php for ($lvl = 1; $lvl <= 7; $lvl++): ?>
                 <div class="flex items-center gap-4">
                     <span class="w-24 text-xs font-bold text-gray-300">Level <?= $lvl ?>:</span>
                     <input type="number" step="0.01" name="matrix_level_<?= $lvl ?>_percent" value="<?= htmlspecialchars($settings["matrix_level_{$lvl}_percent"] ?? '1.00') ?>" required class="w-full px-4 py-2.5 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">

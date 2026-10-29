@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             <i data-lucide="git-fork" class="w-8 h-8 text-brand-400"></i> BFS 3-Matrix Genealogy Tree
         </h1>
-        <p class="text-xs text-gray-400 mt-1">Interactive corporate downline matrix visualization spanning 6 levels</p>
+        <p class="text-xs text-gray-400 mt-1">Interactive corporate downline matrix visualization spanning 7 levels</p>
     </div>
 
     <!-- Package Selector Tabs -->

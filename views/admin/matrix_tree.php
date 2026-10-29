@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             <i data-lucide="git-fork" class="w-8 h-8 text-brand-400"></i> Global Company Matrix Tree
         </h1>
-        <p class="text-xs text-gray-400 mt-1">System-wide 6-level BFS 3-matrix forced spillover node topology and downline inspector</p>
+        <p class="text-xs text-gray-400 mt-1">System-wide 7-level BFS 3-matrix forced spillover node topology and downline inspector</p>
     </div>
 
     <!-- Package Selector Tabs -->

@@ -35,7 +35,7 @@ CREATE TABLE `packages` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(100) NOT NULL,
     `price` DECIMAL(15,2) NOT NULL,
-    `direct_commission_percent` DECIMAL(5,2) NOT NULL DEFAULT 10.00,
+    `direct_commission_percent` DECIMAL(5,2) NOT NULL DEFAULT 20.00,
     `sort_order` INT NOT NULL DEFAULT 1,
     `status` ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -122,26 +122,27 @@ CREATE TABLE `settings` (
 
 -- Insert Default Investment Packages
 INSERT INTO `packages` (`id`, `name`, `price`, `direct_commission_percent`, `sort_order`, `status`) VALUES
-(1, 'Tier 1 - Starter', 500.00, 10.00, 1, 'active'),
-(2, 'Tier 2 - Basic', 1000.00, 10.00, 2, 'active'),
-(3, 'Tier 3 - Pro', 3000.00, 10.00, 3, 'active'),
-(4, 'Tier 4 - Advanced', 5000.00, 10.00, 4, 'active'),
-(5, 'Tier 5 - Executive', 10000.00, 10.00, 5, 'active'),
-(6, 'Tier 6 - Master', 25000.00, 10.00, 6, 'active'),
-(7, 'Tier 7 - Elite', 50000.00, 10.00, 7, 'active'),
-(8, 'Tier 8 - Pinnacle', 100000.00, 10.00, 8, 'active');
+(1, 'Tier 1 - Starter', 500.00, 20.00, 1, 'active'),
+(2, 'Tier 2 - Basic', 1000.00, 20.00, 2, 'active'),
+(3, 'Tier 3 - Pro', 3000.00, 20.00, 3, 'active'),
+(4, 'Tier 4 - Advanced', 5000.00, 20.00, 4, 'active'),
+(5, 'Tier 5 - Executive', 10000.00, 20.00, 5, 'active'),
+(6, 'Tier 6 - Master', 25000.00, 20.00, 6, 'active'),
+(7, 'Tier 7 - Elite', 50000.00, 20.00, 7, 'active'),
+(8, 'Tier 8 - Pinnacle', 100000.00, 20.00, 8, 'active');
 
 -- Insert Default Settings
 INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('reserve_percentage', '25.00', 'Percentage of earnings directed to reserve pool for auto-upgrades'),
-('auto_upgrade_milestone_level', '3', 'Level completion milestone (1-6) that triggers package auto-progression check'),
-('direct_sponsor_commission_percent', '10.00', 'Global direct referral commission percentage'),
+('auto_upgrade_milestone_level', '3', 'Level completion milestone (1-7) that triggers package auto-progression check'),
+('direct_sponsor_commission_percent', '20.00', 'Global direct referral commission percentage'),
 ('matrix_level_1_percent', '5.00', 'Matrix level 1 payout percentage'),
 ('matrix_level_2_percent', '4.00', 'Matrix level 2 payout percentage'),
 ('matrix_level_3_percent', '3.00', 'Matrix level 3 payout percentage'),
 ('matrix_level_4_percent', '2.00', 'Matrix level 4 payout percentage'),
 ('matrix_level_5_percent', '1.00', 'Matrix level 5 payout percentage'),
-('matrix_level_6_percent', '1.00', 'Matrix level 6 payout percentage');
+('matrix_level_6_percent', '1.00', 'Matrix level 6 payout percentage'),
+('matrix_level_7_percent', '1.00', 'Matrix level 7 payout percentage');
 
 -- Create Default Company Admin User (Password: Admin@123456)
 -- Password hash generated with password_hash('Admin@123456', PASSWORD_BCRYPT)

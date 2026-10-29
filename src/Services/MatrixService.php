@@ -72,7 +72,7 @@ class MatrixService {
                 $stmtUpdateParent->execute([$parentId]);
             }
 
-            // 3. Process Commissions (Direct & 6-Level Matrix)
+            // 3. Process Commissions (Direct & 7-Level Matrix)
             $payouts = $this->commissionService->processCommissions($userId, $packageId, (float)$package['price'], $newNodeId);
 
             $this->db->commit();
@@ -104,13 +104,13 @@ class MatrixService {
     }
 
     /**
-     * Breadth-First Search (BFS) to find the first open node (children_count < 3 and depth < 6)
+     * Breadth-First Search (BFS) to find the first open node (children_count < 3 and depth < 7)
      */
     private function findBfsPlacementSpot(int $packageId): ?array {
         $stmt = $this->db->prepare("
             SELECT id, depth, children_count
             FROM matrix_nodes
-            WHERE package_id = ? AND children_count < 3 AND depth < 6
+            WHERE package_id = ? AND children_count < 3 AND depth < 7
             ORDER BY depth ASC, id ASC
             LIMIT 1
         ");
@@ -137,7 +137,7 @@ class MatrixService {
             return [];
         }
 
-        return $this->buildSubtree($rootNode, 6);
+        return $this->buildSubtree($rootNode, 7);
     }
 
     private function buildSubtree(array $node, int $maxDepthRemaining): array {
@@ -166,7 +166,7 @@ class MatrixService {
     private function getUplineUserIds(int $nodeId): array {
         $ancestors = [];
         $currentId = $nodeId;
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             $stmt = $this->db->prepare("SELECT parent_id FROM matrix_nodes WHERE id = ?");
             $stmt->execute([$currentId]);
             $parentId = $stmt->fetchColumn();
