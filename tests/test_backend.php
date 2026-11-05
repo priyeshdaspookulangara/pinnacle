@@ -71,6 +71,10 @@ $commissions = $db->query("SELECT * FROM commissions WHERE user_id = $userAId")-
 echo "User A Total Commission Records: " . count($commissions) . "\n";
 foreach ($commissions as $comm) {
     echo "  - Type: {$comm['type']}, Level: {$comm['level']}, Amount: ₹{$comm['amount']}, Net: ₹{$comm['net_amount']}, Reserved: ₹{$comm['reserved_amount']}\n";
+    if ($comm['type'] === 'direct_sponsor') {
+        assert((float)$comm['reserved_amount'] === 0.0, "Referral income must have 0 cutting / reserved amount");
+        assert((float)$comm['net_amount'] === (float)$comm['amount'], "Referral income must be 100% credited to net amount");
+    }
 }
 
 // Step 4: Test Auto-Upgrade / Progression

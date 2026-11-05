@@ -28,7 +28,7 @@
                 <div class="relative">
                     <input type="number" step="0.01" name="reserve_percentage" value="<?= htmlspecialchars($settings['reserve_percentage'] ?? '25.00') ?>" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
                 </div>
-                <p class="text-[11px] text-gray-400 mt-1">Percentage of all commission payouts automatically directed to the member's reserve upgrade pool.</p>
+                <p class="text-[11px] text-gray-400 mt-1">Percentage of matrix level payouts automatically directed to the member's reserve upgrade pool (referral income has 0% cutting).</p>
             </div>
 
             <div>
@@ -40,7 +40,7 @@
             <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Global Direct Sponsor Bonus (%)</label>
                 <input type="number" step="0.01" name="direct_sponsor_commission_percent" value="<?= htmlspecialchars($settings['direct_sponsor_commission_percent'] ?? '20.00') ?>" required class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-brand-500">
-                <p class="text-[11px] text-gray-400 mt-1">Default percentage rewarded to the direct sponsor upon package purchase.</p>
+                <p class="text-[11px] text-gray-400 mt-1">Default percentage rewarded to direct sponsors (100% credited to wallet, zero cutting/reserve deduction).</p>
             </div>
         </div>
 

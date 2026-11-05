@@ -25,19 +25,19 @@ class CommissionService {
 
         $payouts = [];
 
-        // 1. Direct Sponsor Commission
+        // 1. Direct Sponsor Commission (No cutting / deductions in referral income: 100% credited to wallet)
         $buyer = $this->userModel->findById($buyerUserId);
         if ($buyer && !empty($buyer['sponsor_id'])) {
             $sponsorId = (int)$buyer['sponsor_id'];
             $directPercent = (float)($settings['direct_sponsor_commission_percent'] ?? 20.00);
 
             $grossAmount = $packagePrice * ($directPercent / 100.0);
-            $reserveAmount = $grossAmount * ($reservePercent / 100.0);
-            $netAmount = $grossAmount - $reserveAmount;
+            $reserveAmount = 0.00; // No cutting in referral income
+            $netAmount = $grossAmount;
 
             if ($grossAmount > 0) {
-                // Update sponsor balances
-                $this->userModel->updateBalances($sponsorId, $netAmount, $reserveAmount);
+                // Update sponsor balances (full net amount to wallet, 0 to reserve)
+                $this->userModel->updateBalances($sponsorId, $netAmount, 0.00);
 
                 // Fetch updated balances
                 $updatedSponsor = $this->userModel->findById($sponsorId);
@@ -47,15 +47,15 @@ class CommissionService {
                     INSERT INTO commissions (user_id, source_user_id, package_id, type, level, amount, reserved_amount, net_amount)
                     VALUES (?, ?, ?, 'direct_sponsor', NULL, ?, ?, ?)
                 ");
-                $stmt->execute([$sponsorId, $buyerUserId, $packageId, $grossAmount, $reserveAmount, $netAmount]);
+                $stmt->execute([$sponsorId, $buyerUserId, $packageId, $grossAmount, 0.00, $netAmount]);
 
                 // Record Ledger
                 $stmtLedger = $this->db->prepare("
                     INSERT INTO ledger (user_id, type, amount, balance_after, reserve_after, description)
                     VALUES (?, 'credit', ?, ?, ?, ?)
                 ");
-                $desc = sprintf("Direct Sponsor Bonus (Tier #%d) from %s (Net: %s, Reserve Hold: %s)",
-                    $packageId, $buyer['username'], formatCurrency($netAmount), formatCurrency($reserveAmount));
+                $desc = sprintf("Direct Sponsor Bonus (Tier #%d) from %s (%s - 100%% credited, no deductions)",
+                    $packageId, $buyer['username'], formatCurrency($netAmount));
                 $stmtLedger->execute([$sponsorId, $netAmount, $updatedSponsor['wallet_balance'], $updatedSponsor['reserve_balance'], $desc]);
 
                 $payouts[] = [
@@ -63,7 +63,7 @@ class CommissionService {
                     'type' => 'direct_sponsor',
                     'amount' => $grossAmount,
                     'net' => $netAmount,
-                    'reserved' => $reserveAmount
+                    'reserved' => 0.00
                 ];
             }
         }

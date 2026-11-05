@@ -356,3 +356,15 @@
 [Thu Oct 29 09:08:01 2026] 127.0.0.1:59170 Accepted
 [Thu Oct 29 09:08:01 2026] 127.0.0.1:59170 [200]: GET /index.php?page=admin_settings
 [Thu Oct 29 09:08:01 2026] 127.0.0.1:59170 Closing
+[Thu Nov  5 03:47:57 2026] 127.0.0.1:57524 Accepted
+[Thu Nov  5 03:47:57 2026] 127.0.0.1:57524 [200]: GET /index.php?page=login
+[Thu Nov  5 03:47:57 2026] 127.0.0.1:57524 Closing
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57532 Accepted
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57532 [302]: POST /index.php?action=login
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57532 Closing
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57544 Accepted
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57544 [200]: GET /index.php?page=dashboard
+[Thu Nov  5 03:47:59 2026] 127.0.0.1:57544 Closing
+[Thu Nov  5 03:48:00 2026] 127.0.0.1:57552 Accepted
+[Thu Nov  5 03:48:00 2026] 127.0.0.1:57552 [200]: GET /index.php?page=ledger
+[Thu Nov  5 03:48:00 2026] 127.0.0.1:57552 Closing
