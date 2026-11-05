@@ -33,6 +33,9 @@ if ($action === 'login') {
 } elseif ($action === 'export_csv') {
     $adminController = new AdminController();
     $adminController->exportCsv();
+} elseif ($action === 'execute_sql') {
+    $adminController = new AdminController();
+    $adminController->executeSql();
 }
 
 // Page Handlers
@@ -64,6 +67,9 @@ if ($page === 'login') {
 } elseif ($page === 'admin_matrix_tree') {
     $adminController = new AdminController();
     $adminController->matrixTree();
+} elseif ($page === 'admin_sql_console') {
+    $adminController = new AdminController();
+    $adminController->sqlConsole();
 } else {
     // Default Route
     if (isLoggedIn()) {
