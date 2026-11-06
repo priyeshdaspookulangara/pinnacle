@@ -16,7 +16,7 @@ class UsdtPayment {
     public function getSettings(): array {
         return [
             'trc20_address' => $this->settings->get('usdt_trc20_address') ?: 'TYDzpSLtq8X2yB33x9v2QG2H1234567890',
-            'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x71C8705a22441C316561aC5D5698A44F12345678',
+            'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x572790c26FC062C247D0e1797D646F20a093AE14',
             'inr_rate' => (float)($this->settings->get('usdt_inr_rate') ?: 90.00),
         ];
     }
