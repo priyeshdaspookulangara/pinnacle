@@ -103,6 +103,29 @@
         </div>
     </div>
 
+        <!-- USDT Payment Gateways & Conversion Settings -->
+        <div class="glass-card rounded-3xl p-6 border border-emerald-500/20 space-y-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> USDT Payment Gateway & Conversion Rules
+            </h3>
+            <p class="text-xs text-gray-400">Configure corporate crypto addresses and exchange rates for automated member USDT activation.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">USDT Conversion Rate (₹ per 1 USDT)</label>
+                    <input type="number" step="0.01" name="usdt_inr_rate" value="<?= htmlspecialchars($settings['usdt_inr_rate'] ?? '90.00') ?>" required class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-emerald-400 font-mono text-sm focus:border-brand-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">TRC20 (Tron) Deposit Address</label>
+                    <input type="text" name="usdt_trc20_address" value="<?= htmlspecialchars($settings['usdt_trc20_address'] ?? '') ?>" required class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-gray-200 font-mono text-xs focus:border-brand-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">BEP20 (BSC) Deposit Address</label>
+                    <input type="text" name="usdt_bep20_address" value="<?= htmlspecialchars($settings['usdt_bep20_address'] ?? '') ?>" required class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-gray-200 font-mono text-xs focus:border-brand-500 focus:outline-none">
+                </div>
+            </div>
+        </div>
+
     <!-- Submit Button -->
     <div class="flex justify-end">
         <button type="submit" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-brand-500 to-emerald-400 hover:from-brand-600 hover:to-emerald-500 text-black font-extrabold text-sm transition shadow-xl shadow-brand-500/20 flex items-center gap-2">

@@ -72,6 +72,9 @@ class User {
     }
 
     public function updateMember(int $id, string $fullName, string $email, ?string $phone, float $walletBalance, float $reserveBalance, string $status, ?string $newPassword = null): bool {
+        if (!in_array($status, ['active', 'inactive', 'suspended'])) {
+            $status = 'active';
+        }
         if (!empty($newPassword)) {
             $hash = password_hash($newPassword, PASSWORD_BCRYPT);
             $stmt = $this->db->prepare("
@@ -88,6 +91,17 @@ class User {
             ");
             return $stmt->execute([$fullName, $email, $phone, $walletBalance, $reserveBalance, $status, $id]);
         }
+    }
+
+    public function toggleMemberStatus(int $userId, string $newStatus): bool {
+        if (!in_array($newStatus, ['active', 'inactive', 'suspended'])) {
+            return false;
+        }
+        if ($userId === 1) {
+            throw new Exception("Cannot change status of primary system administrator.");
+        }
+        $stmt = $this->db->prepare("UPDATE users SET status = ? WHERE id = ?");
+        return $stmt->execute([$newStatus, $userId]);
     }
 
     public function deleteMemberCompletely(int $userId): bool {

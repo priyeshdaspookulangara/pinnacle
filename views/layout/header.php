@@ -92,10 +92,16 @@
                 <a href="index.php?page=admin_members" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_members' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="users" class="w-4 h-4"></i> All Members
                 </a>
+                    <a href="index.php?page=admin_usdt" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold <?= $page === 'admin_usdt' ? 'bg-brand-500/10 text-brand-400 border border-brand-500/20' : 'text-gray-400 hover:text-white hover:bg-gray-800/40' ?> transition">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> USDT Activations
+                    </a>
             <?php else: ?>
                 <a href="index.php?page=dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'dashboard' || empty($_GET['page']) ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
                 </a>
+                    <a href="index.php?page=usdt_activate" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold <?= $page === 'usdt_activate' ? 'bg-brand-500/10 text-brand-400 border border-brand-500/20' : 'text-gray-400 hover:text-white hover:bg-gray-800/40' ?> transition">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> USDT Activation
+                    </a>
                 <a href="index.php?page=referrals" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'referrals' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="users-round" class="w-4 h-4"></i> My Referrals
                 </a>

@@ -53,8 +53,12 @@ class AuthController {
                 exit();
             }
 
-            if ($user['status'] !== 'active') {
-                $_SESSION['error'] = "Your account is currently suspended.";
+            if ($user['status'] === 'suspended') {
+                $_SESSION['error'] = "Your account is currently suspended by administration.";
+                header("Location: index.php?page=login");
+                exit();
+            } elseif ($user['status'] === 'inactive') {
+                $_SESSION['error'] = "Your account is currently inactive. Please complete USDT package activation or contact admin.";
                 header("Location: index.php?page=login");
                 exit();
             }
@@ -149,9 +153,9 @@ class AuthController {
 
             $_SESSION['user_id'] = $newUserId;
             $_SESSION['user_role'] = 'user';
-            $_SESSION['success'] = "Registration successful! Welcome to Pinnacle Hunt.";
+            $_SESSION['success'] = "Registration successful! Please submit your USDT deposit to activate your package.";
 
-            header("Location: index.php?page=dashboard");
+            header("Location: index.php?page=usdt_activate");
             exit();
         } catch (Exception $e) {
             $_SESSION['error'] = "Registration Error: " . $e->getMessage();

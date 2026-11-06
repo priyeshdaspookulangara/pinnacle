@@ -21,6 +21,9 @@ if ($action === 'login') {
 } elseif ($action === 'purchase_package') {
     $userController = new UserController();
     $userController->purchasePackage();
+} elseif ($action === 'submit_usdt_payment') {
+    $userController = new UserController();
+    $userController->submitUsdtPayment();
 } elseif ($action === 'request_withdrawal') {
     $userController = new UserController();
     $userController->requestWithdrawal();
@@ -30,9 +33,15 @@ if ($action === 'login') {
 } elseif ($action === 'process_withdrawal') {
     $adminController = new AdminController();
     $adminController->processWithdrawal();
+} elseif ($action === 'process_usdt_activation') {
+    $adminController = new AdminController();
+    $adminController->processUsdtActivation();
 } elseif ($action === 'edit_member') {
     $adminController = new AdminController();
     $adminController->editMember();
+} elseif ($action === 'toggle_member_status') {
+    $adminController = new AdminController();
+    $adminController->toggleMemberStatus();
 } elseif ($action === 'delete_member') {
     $adminController = new AdminController();
     $adminController->deleteMember();
@@ -49,6 +58,9 @@ if ($page === 'login') {
 } elseif ($page === 'dashboard') {
     $userController = new UserController();
     $userController->dashboard();
+} elseif ($page === 'usdt_activate') {
+    $userController = new UserController();
+    $userController->usdtActivationPage();
 } elseif ($page === 'genealogy') {
     $userController = new UserController();
     $userController->genealogy();
@@ -67,6 +79,9 @@ if ($page === 'login') {
 } elseif ($page === 'admin_members') {
     $adminController = new AdminController();
     $adminController->members();
+} elseif ($page === 'admin_usdt') {
+    $adminController = new AdminController();
+    $adminController->usdtActivations();
 } elseif ($page === 'admin_matrix_tree') {
     $adminController = new AdminController();
     $adminController->matrixTree();

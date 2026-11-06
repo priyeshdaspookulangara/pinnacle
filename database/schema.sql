@@ -5,6 +5,7 @@ USE `pinnacle_hunt`;
 
 -- Drop tables if they exist to allow clean reinstall
 DROP TABLE IF EXISTS `withdrawals`;
+DROP TABLE IF EXISTS `usdt_payments`;
 DROP TABLE IF EXISTS `ledger`;
 DROP TABLE IF EXISTS `commissions`;
 DROP TABLE IF EXISTS `matrix_nodes`;
@@ -25,9 +26,27 @@ CREATE TABLE `users` (
     `sponsor_id` INT DEFAULT NULL,
     `wallet_balance` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
     `reserve_balance` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
-    `status` ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
+    `status` ENUM('active', 'inactive', 'suspended') NOT NULL DEFAULT 'active',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`sponsor_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- USDT Payments Table for Account & Package Activation
+CREATE TABLE `usdt_payments` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `package_id` INT NOT NULL,
+    `amount_inr` DECIMAL(15,2) NOT NULL,
+    `amount_usdt` DECIMAL(15,2) NOT NULL,
+    `network` VARCHAR(20) NOT NULL DEFAULT 'TRC20',
+    `wallet_address` VARCHAR(255) NOT NULL,
+    `txid` VARCHAR(255) DEFAULT NULL,
+    `status` ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    `admin_notes` TEXT DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`package_id`) REFERENCES `packages`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Packages Table
@@ -144,7 +163,10 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('matrix_level_5_percent', '2.50', 'Matrix level 5 payout percentage'),
 ('matrix_level_6_percent', '1.25', 'Matrix level 6 payout percentage'),
 ('matrix_level_7_percent', '1.25', 'Matrix level 7 payout percentage'),
-('matrix_level_8_percent', '1.00', 'Matrix level 8 payout percentage');
+('matrix_level_8_percent', '1.00', 'Matrix level 8 payout percentage'),
+('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'USDT TRC20 Deposit Wallet Address'),
+('usdt_bep20_address', '0x71C8705a22441C316561aC5D5698A44F12345678', 'USDT BEP20 Deposit Wallet Address'),
+('usdt_inr_rate', '90.00', '1 USDT conversion rate in INR (₹)');
 
 -- Create Default Company Admin User (Password: Admin@123456)
 -- Password hash generated with password_hash('Admin@123456', PASSWORD_BCRYPT)

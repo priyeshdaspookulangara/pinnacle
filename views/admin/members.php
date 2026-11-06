@@ -54,12 +54,36 @@
                             <td class="px-3 py-3 text-emerald-400 font-bold"><?= formatCurrency($u['wallet_balance']) ?></td>
                             <td class="px-3 py-3 text-amber-400 font-bold"><?= formatCurrency($u['reserve_balance']) ?></td>
                             <td class="px-3 py-3 font-sans">
-                                <span class="px-2 py-0.5 rounded text-[10px] font-bold <?= $u['status'] === 'active' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20' ?>">
-                                    <?= ucfirst($u['status']) ?>
-                                </span>
+                                <?php if ($u['status'] === 'active'): ?>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+                                <?php elseif ($u['status'] === 'inactive'): ?>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Inactive</span>
+                                <?php else: ?>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20">Suspended</span>
+                                <?php endif; ?>
                             </td>
                             <td class="px-3 py-3 font-sans text-center">
                                 <div class="flex items-center justify-center gap-1.5">
+                                    <?php if ($u['id'] !== 1): ?>
+                                        <!-- Activation / Deactivation Toggle Button -->
+                                        <form action="index.php?action=toggle_member_status" method="POST" class="inline">
+                                            <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
+                                            <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
+                                            <?php if ($u['status'] === 'active'): ?>
+                                                <input type="hidden" name="status" value="inactive">
+                                                <button type="submit" title="Deactivate Member" class="p-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition flex items-center gap-1 text-[11px] font-semibold">
+                                                    <i data-lucide="power-off" class="w-3.5 h-3.5"></i>
+                                                    <span>Deactivate</span>
+                                                </button>
+                                            <?php else: ?>
+                                                <input type="hidden" name="status" value="active">
+                                                <button type="submit" title="Activate Member" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1 text-[11px] font-semibold">
+                                                    <i data-lucide="power" class="w-3.5 h-3.5"></i>
+                                                    <span>Activate</span>
+                                                </button>
+                                            <?php endif; ?>
+                                        </form>
+                                    <?php endif; ?>
                                     <!-- WhatsApp Welcome Button -->
                                     <button onclick="openWhatsAppModal(<?= htmlspecialchars(json_encode([
                                         'id' => $u['id'],
@@ -167,6 +191,7 @@
                     <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Status</label>
                     <select name="status" id="editStatus" class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-white text-xs focus:border-blue-500 focus:outline-none">
                         <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
                         <option value="suspended">Suspended</option>
                     </select>
                 </div>

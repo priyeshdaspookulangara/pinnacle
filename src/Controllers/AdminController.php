@@ -5,11 +5,13 @@ require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Models/Package.php';
 require_once __DIR__ . '/../Models/Settings.php';
+require_once __DIR__ . '/../Models/UsdtPayment.php';
 
 class AdminController {
     private User $userModel;
     private Package $packageModel;
     private Settings $settingsModel;
+    private UsdtPayment $usdtModel;
     private PDO $db;
 
     public function __construct() {
@@ -17,6 +19,7 @@ class AdminController {
         $this->userModel = new User();
         $this->packageModel = new Package();
         $this->settingsModel = new Settings();
+        $this->usdtModel = new UsdtPayment();
         $this->db = Database::getConnection();
     }
 
@@ -46,6 +49,71 @@ class AdminController {
         require_once __DIR__ . '/../../views/admin/settings.php';
     }
 
+    public function usdtActivations() {
+        $payments = $this->usdtModel->getAll();
+        $usdtConfig = $this->usdtModel->getSettings();
+        require_once __DIR__ . '/../../views/admin/usdt_activations.php';
+    }
+
+    public function processUsdtActivation() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=admin_usdt");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_usdt");
+            exit();
+        }
+
+        require_once __DIR__ . '/../Services/MatrixService.php';
+        $matrixService = new MatrixService();
+
+        $paymentId = (int)($_POST['payment_id'] ?? 0);
+        $decision = trim($_POST['decision'] ?? '');
+        $notes = trim($_POST['admin_notes'] ?? '');
+
+        $payment = $this->usdtModel->findById($paymentId);
+        if (!$payment) {
+            $_SESSION['error'] = "Payment record not found.";
+            header("Location: index.php?page=admin_usdt");
+            exit();
+        }
+
+        if ($payment['status'] !== 'pending') {
+            $_SESSION['error'] = "Payment has already been processed.";
+            header("Location: index.php?page=admin_usdt");
+            exit();
+        }
+
+        if ($decision === 'approve') {
+            try {
+                // 1. Activate member account
+                $stmtAct = $this->db->prepare("UPDATE users SET status = 'active' WHERE id = ?");
+                $stmtAct->execute([$payment['user_id']]);
+
+                // 2. Mark payment approved
+                $this->usdtModel->updateStatus($paymentId, 'approved', $notes ?: 'Approved by admin via USDT verification');
+
+                // 3. Place in BFS Matrix and distribute commissions (matrixService handles its internal transaction)
+                $matrixService->purchaseAndPlace((int)$payment['user_id'], (int)$payment['package_id']);
+
+                $_SESSION['success'] = "USDT Payment approved! Member activated and placed in BFS Matrix.";
+            } catch (Exception $e) {
+                $_SESSION['error'] = "Approval failed: " . $e->getMessage();
+            }
+        } elseif ($decision === 'reject') {
+            $this->usdtModel->updateStatus($paymentId, 'rejected', $notes ?: 'Rejected by admin');
+            $_SESSION['success'] = "USDT Payment rejected.";
+        } else {
+            $_SESSION['error'] = "Invalid decision action.";
+        }
+
+        header("Location: index.php?page=admin_usdt");
+        exit();
+    }
+
     public function updateSettings() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=admin_settings");
@@ -71,6 +139,9 @@ class AdminController {
                 'matrix_level_6_percent' => (float)($_POST['matrix_level_6_percent'] ?? 1.25),
                 'matrix_level_7_percent' => (float)($_POST['matrix_level_7_percent'] ?? 1.25),
                 'matrix_level_8_percent' => (float)($_POST['matrix_level_8_percent'] ?? 1.00),
+                'usdt_trc20_address' => trim($_POST['usdt_trc20_address'] ?? ''),
+                'usdt_bep20_address' => trim($_POST['usdt_bep20_address'] ?? ''),
+                'usdt_inr_rate' => (float)($_POST['usdt_inr_rate'] ?? 90.00),
             ]);
 
             // Update packages prices & commission rates if submitted
@@ -131,6 +202,33 @@ class AdminController {
             $_SESSION['success'] = "Member #{$userId} profile and balances updated successfully!";
         } catch (Exception $e) {
             $_SESSION['error'] = "Failed to update member: " . $e->getMessage();
+        }
+
+        header("Location: index.php?page=admin_members");
+        exit();
+    }
+
+    public function toggleMemberStatus() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        $userId = (int)($_POST['user_id'] ?? 0);
+        $status = trim($_POST['status'] ?? 'active');
+
+        try {
+            $this->userModel->toggleMemberStatus($userId, $status);
+            $actionLabel = ($status === 'active') ? 'activated' : 'deactivated';
+            $_SESSION['success'] = "Member successfully {$actionLabel}!";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Status Update Failed: " . $e->getMessage();
         }
 
         header("Location: index.php?page=admin_members");

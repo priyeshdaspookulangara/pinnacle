@@ -16,6 +16,9 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! 
         <p class="text-sm text-gray-400 mt-1">Breadth-First Search (BFS) 5-Matrix Forced Spillover Member Portal</p>
     </div>
     <div class="flex items-center gap-2">
+        <a href="index.php?page=usdt_activate" class="px-4 py-2.5 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs transition flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> USDT Activation
+        </a>
         <a href="index.php?page=genealogy" class="px-4 py-2.5 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 font-semibold text-xs transition flex items-center gap-2">
             <i data-lucide="git-fork" class="w-4 h-4 text-brand-400"></i> View Matrix Tree
         </a>
@@ -24,6 +27,24 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! 
         </a>
     </div>
 </div>
+
+<?php if (empty($userPackages)): ?>
+    <!-- Notice to Activate via USDT or INR -->
+    <div class="glass-card rounded-3xl p-5 mb-8 border border-emerald-500/30 bg-emerald-500/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold text-white">Complete Your Registration with USDT</h4>
+                <p class="text-xs text-gray-400">Deposit USDT (TRC-20 or BEP-20) to activate your Starter package and secure your placement in the company-wide BFS 5-Matrix.</p>
+            </div>
+        </div>
+        <a href="index.php?page=usdt_activate" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-brand-500 hover:from-emerald-600 hover:to-brand-600 text-black font-extrabold text-xs transition shadow-lg shadow-emerald-500/20 flex items-center gap-1.5 shrink-0">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Pay with USDT
+        </a>
+    </div>
+<?php endif; ?>
 
 <!-- Stats Overview Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">

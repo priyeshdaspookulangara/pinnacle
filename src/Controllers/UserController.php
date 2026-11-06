@@ -4,11 +4,13 @@
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Models/Package.php';
+require_once __DIR__ . '/../Models/UsdtPayment.php';
 require_once __DIR__ . '/../Services/MatrixService.php';
 
 class UserController {
     private User $userModel;
     private Package $packageModel;
+    private UsdtPayment $usdtModel;
     private MatrixService $matrixService;
     private PDO $db;
 
@@ -16,8 +18,59 @@ class UserController {
         requireAuth();
         $this->userModel = new User();
         $this->packageModel = new Package();
+        $this->usdtModel = new UsdtPayment();
         $this->matrixService = new MatrixService();
         $this->db = Database::getConnection();
+    }
+
+    public function usdtActivationPage() {
+        $user = currentUser();
+        $packages = $this->packageModel->getAllActive();
+        $usdtConfig = $this->usdtModel->getSettings();
+        $userPayments = $this->usdtModel->getUserPayments($user['id']);
+
+        require_once __DIR__ . '/../../views/user/usdt_activate.php';
+    }
+
+    public function submitUsdtPayment() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        $user = currentUser();
+        $packageId = (int)($_POST['package_id'] ?? 0);
+        $network = trim($_POST['network'] ?? 'TRC20');
+        $txid = trim($_POST['txid'] ?? '');
+
+        if ($packageId <= 0 || empty($txid)) {
+            $_SESSION['error'] = "Package selection and Transaction Hash (TXID) are required.";
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        $package = $this->packageModel->findById($packageId);
+        if (!$package) {
+            $_SESSION['error'] = "Selected package does not exist.";
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        try {
+            $this->usdtModel->createPayment($user['id'], $packageId, (float)$package['price'], $network, $txid);
+            $_SESSION['success'] = "USDT payment proof submitted successfully! Admin will verify and activate your package shortly.";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Failed to submit USDT payment proof: " . $e->getMessage();
+        }
+
+        header("Location: index.php?page=usdt_activate");
+        exit();
     }
 
     public function dashboard() {
