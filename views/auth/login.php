@@ -35,7 +35,7 @@
         </form>
 
         <div class="mt-8 text-center text-sm text-gray-400">
-            Don't have an account? <a href="/index.php?page=register" class="text-brand-400 font-semibold hover:underline">Register Now</a>
+            Don't have an account? <a href="index.php?page=register" class="text-brand-400 font-semibold hover:underline">Register Now</a>
         </div>
     </div>
 </div>

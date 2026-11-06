@@ -68,7 +68,7 @@
         </form>
 
         <div class="mt-6 text-center text-sm text-gray-400">
-            Already registered? <a href="/index.php?page=login" class="text-brand-400 font-semibold hover:underline">Sign In</a>
+            Already registered? <a href="index.php?page=login" class="text-brand-400 font-semibold hover:underline">Sign In</a>
         </div>
     </div>
 </div>
