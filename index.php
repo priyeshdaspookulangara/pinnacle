@@ -30,6 +30,12 @@ if ($action === 'login') {
 } elseif ($action === 'process_withdrawal') {
     $adminController = new AdminController();
     $adminController->processWithdrawal();
+} elseif ($action === 'edit_member') {
+    $adminController = new AdminController();
+    $adminController->editMember();
+} elseif ($action === 'delete_member') {
+    $adminController = new AdminController();
+    $adminController->deleteMember();
 } elseif ($action === 'export_csv') {
     $adminController = new AdminController();
     $adminController->exportCsv();

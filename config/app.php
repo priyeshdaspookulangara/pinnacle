@@ -107,3 +107,32 @@ function getSetting(string $key, $default = null) {
 function formatCurrency($amount): string {
     return '₹' . number_format((float)$amount, 2);
 }
+
+// Helper: Generate WhatsApp-formatted welcome message
+function generateWhatsAppWelcomeMessage(array $user): string {
+    $fullName = $user['full_name'] ?? 'Member';
+    $username = $user['username'] ?? '';
+    $sponsor = !empty($user['sponsor_username']) ? "@" . $user['sponsor_username'] : "Pinnacle Hunt Team";
+    $appUrl = APP_URL . "/index.php?page=login";
+    $referralUrl = APP_URL . "/index.php?page=register&ref=" . urlencode($username);
+
+    $msg = "🚀 *WELCOME TO PINNACLE HUNT PLATFORM!* 🚀\n\n";
+    $msg .= "Dear *{$fullName}*,\n";
+    $msg .= "Congratulations and welcome to the next-generation *Pinnacle Hunt 5-Matrix Forced Spillover Ecosystem*! 🌟\n\n";
+    $msg .= "📋 *YOUR ACCOUNT CREDENTIALS:*\n";
+    $msg .= "▪ *Username:* `{$username}`\n";
+    $msg .= "▪ *Assigned Sponsor:* `{$sponsor}`\n";
+    $msg .= "▪ *Account Status:* *ACTIVE* ✅\n\n";
+    $msg .= "🌐 *LOGIN TO YOUR DASHBOARD:*\n";
+    $msg .= "👉 {$appUrl}\n\n";
+    $msg .= "🔗 *YOUR PERSONAL AFFILIATE LINK:*\n";
+    $msg .= "👉 {$referralUrl}\n\n";
+    $msg .= "💡 *SYSTEM HIGHLIGHTS:*\n";
+    $msg .= "• *20% Direct Sponsor Bonus* (100% credited to your wallet)\n";
+    $msg .= "• *8-Level Company-Wide 5-Matrix Spillover* topology\n";
+    $msg .= "• *Automated Package Progression* through smart reserve pool\n\n";
+    $msg .= "_For queries and support, contact your team leader or official Pinnacle Hunt administration._\n\n";
+    $msg .= "*Happy Earning & Growth!* 💰✨";
+
+    return $msg;
+}

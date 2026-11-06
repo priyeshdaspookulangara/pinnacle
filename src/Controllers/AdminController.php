@@ -99,6 +99,69 @@ class AdminController {
         require_once __DIR__ . '/../../views/admin/members.php';
     }
 
+    public function editMember() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        $userId = (int)($_POST['user_id'] ?? 0);
+        $fullName = trim($_POST['full_name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $phone = trim($_POST['phone'] ?? '');
+        $walletBalance = (float)($_POST['wallet_balance'] ?? 0.0);
+        $reserveBalance = (float)($_POST['reserve_balance'] ?? 0.0);
+        $status = in_array($_POST['status'] ?? '', ['active', 'suspended']) ? $_POST['status'] : 'active';
+        $newPassword = !empty($_POST['password']) ? trim($_POST['password']) : null;
+
+        if ($userId <= 0 || empty($fullName) || empty($email)) {
+            $_SESSION['error'] = "Member full name and email are required.";
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        try {
+            $this->userModel->updateMember($userId, $fullName, $email, $phone, $walletBalance, $reserveBalance, $status, $newPassword);
+            $_SESSION['success'] = "Member #{$userId} profile and balances updated successfully!";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Failed to update member: " . $e->getMessage();
+        }
+
+        header("Location: index.php?page=admin_members");
+        exit();
+    }
+
+    public function deleteMember() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=admin_members");
+            exit();
+        }
+
+        $userId = (int)($_POST['user_id'] ?? 0);
+
+        try {
+            $this->userModel->deleteMemberCompletely($userId);
+            $_SESSION['success'] = "Member #{$userId} and all related commissions/amounts were purged and reversed completely!";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Failed to delete member: " . $e->getMessage();
+        }
+
+        header("Location: index.php?page=admin_members");
+        exit();
+    }
+
     public function matrixTree() {
         require_once __DIR__ . '/../Services/MatrixService.php';
         $matrixService = new MatrixService();
