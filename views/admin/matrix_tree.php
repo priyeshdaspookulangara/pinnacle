@@ -6,7 +6,7 @@
         <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             <i data-lucide="git-fork" class="w-8 h-8 text-brand-400"></i> Global Company Matrix Tree
         </h1>
-        <p class="text-xs text-gray-400 mt-1">System-wide 7-level BFS 3-matrix forced spillover node topology and downline inspector</p>
+        <p class="text-xs text-gray-400 mt-1">System-wide 7-level BFS 5-matrix forced spillover node topology and downline inspector</p>
     </div>
 
     <!-- Package Selector Tabs -->
@@ -37,7 +37,7 @@ function renderAdminTreeNode(array $node, int $depth = 1) {
                 Depth <?= $node['depth'] ?> | Pos <?= $node['position_index'] ?>
             </div>
             <div class="text-[10px] text-gray-400 mt-1 flex items-center justify-center gap-1">
-                <i data-lucide="users" class="w-3 h-3 text-emerald-400"></i> Children: <strong class="text-white"><?= $node['children_count'] ?>/3</strong>
+                <i data-lucide="users" class="w-3 h-3 text-emerald-400"></i> Children: <strong class="text-white"><?= $node['children_count'] ?>/5</strong>
             </div>
         </div>
 
@@ -61,7 +61,7 @@ function renderAdminTreeNode(array $node, int $depth = 1) {
 <div class="glass-card rounded-3xl p-6 sm:p-10 mb-8 border border-gray-800 overflow-x-auto">
     <div class="text-center mb-6">
         <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20">
-            Forced BFS 3-Matrix Topology for Package Tier #<?= $selectedPackageId ?>
+            Forced BFS 5-Matrix Topology for Package Tier #<?= $selectedPackageId ?>
         </span>
     </div>
 

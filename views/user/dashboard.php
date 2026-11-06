@@ -4,7 +4,7 @@
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
 $referralUrl = "{$protocol}://{$host}/index.php?page=register&ref=" . urlencode($user['username']);
-$shareText = urlencode("Join Pinnacle Hunt - high-performing 3-Matrix platform! Register using my link: " . $referralUrl);
+$shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! Register using my link: " . $referralUrl);
 ?>
 
 <!-- Header Banner -->
@@ -13,7 +13,7 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 3-Matrix platform! 
         <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             Welcome back, <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-emerald-300"><?= htmlspecialchars($user['full_name']) ?></span> 👋
         </h1>
-        <p class="text-sm text-gray-400 mt-1">Breadth-First Search (BFS) 3-Matrix Forced Spillover Member Portal</p>
+        <p class="text-sm text-gray-400 mt-1">Breadth-First Search (BFS) 5-Matrix Forced Spillover Member Portal</p>
     </div>
     <div class="flex items-center gap-2">
         <a href="index.php?page=genealogy" class="px-4 py-2.5 rounded-2xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 font-semibold text-xs transition flex items-center gap-2">
@@ -116,7 +116,7 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 3-Matrix platform! 
     <div class="flex items-center justify-between mb-6">
         <div>
             <h2 class="text-2xl font-extrabold text-white tracking-tight">Investment & Package Tiers</h2>
-            <p class="text-xs text-gray-400 mt-1">Activate packages to unlock BFS 3-Matrix positioning and 6-level commission streams.</p>
+            <p class="text-xs text-gray-400 mt-1">Activate packages to unlock BFS 5-Matrix positioning and 7-level commission streams.</p>
         </div>
     </div>
 
@@ -151,7 +151,7 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 3-Matrix platform! 
 
                     <ul class="text-xs text-gray-300 space-y-2 mb-6 border-t border-gray-800 pt-4">
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Direct Bonus: <strong class="text-white"><?= $pkg['direct_commission_percent'] ?>%</strong></li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Matrix Structure: <strong class="text-white">3-Matrix (6 Levels)</strong></li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Matrix Structure: <strong class="text-white">5-Matrix (7 Levels)</strong></li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Automated Spillover: <strong class="text-white">BFS Algorithm</strong></li>
                     </ul>
                 </div>

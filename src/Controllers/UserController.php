@@ -78,7 +78,7 @@ class UserController {
 
         try {
             $result = $this->matrixService->purchaseAndPlace($user['id'], $packageId);
-            $_SESSION['success'] = "Package successfully activated! You have been placed in the BFS 3-Matrix.";
+            $_SESSION['success'] = "Package successfully activated! You have been placed in the BFS 5-Matrix.";
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
         }
@@ -93,7 +93,7 @@ class UserController {
 
         $selectedPackageId = (int)($_GET['package_id'] ?? ($packages[0]['id'] ?? 1));
 
-        // Get BFS 3-matrix tree starting from current user or top
+        // Get BFS 5-matrix tree starting from current user or top
         $tree = $this->matrixService->getMatrixTree($selectedPackageId, $user['id']);
 
         // Get direct downline referrals

@@ -92,9 +92,6 @@
                 <a href="index.php?page=admin_members" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_members' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="users" class="w-4 h-4"></i> All Members
                 </a>
-                <a href="index.php?page=admin_sql_console" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'admin_sql_console' ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
-                    <i data-lucide="terminal" class="w-4 h-4"></i> SQL Member Console
-                </a>
             <?php else: ?>
                 <a href="index.php?page=dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition hover:bg-gray-800/80 hover:text-white <?= ($_GET['page'] ?? '') === 'dashboard' || empty($_GET['page']) ? 'bg-brand-500 text-black shadow-lg shadow-brand-500/20' : 'text-gray-300' ?>">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
@@ -149,7 +146,7 @@
 
                 <div class="flex items-center gap-4">
                     <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-mono text-xs border border-emerald-500/20">
-                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> BFS 3-Matrix Active
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> BFS 5-Matrix Active
                     </span>
                     <button id="topNavShareBtn" onclick="copyToClipboard('<?= htmlspecialchars($asideRefUrl) ?>', 'topNavShareBtn')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-500 hover:bg-brand-600 text-black shadow-md shadow-brand-500/20 transition flex items-center gap-1.5">
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Joining Link
@@ -178,7 +175,6 @@
                     <a href="index.php?page=admin_matrix_tree" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="git-fork" class="w-5 h-5"></i> Matrix Tree View</a>
                         <a href="index.php?page=admin_settings" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="sliders" class="w-5 h-5"></i> Commission Rules</a>
                         <a href="index.php?page=admin_members" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="users" class="w-5 h-5"></i> All Members</a>
-                        <a href="index.php?page=admin_sql_console" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="terminal" class="w-5 h-5"></i> SQL Member Console</a>
                     <?php else: ?>
                         <a href="index.php?page=dashboard" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
                         <a href="index.php?page=referrals" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-200 bg-gray-800/80"><i data-lucide="users-round" class="w-5 h-5"></i> My Referrals</a>

@@ -53,14 +53,14 @@ CREATE TABLE `user_packages` (
     UNIQUE KEY `user_pkg_unique` (`user_id`, `package_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Matrix Nodes Table (3-matrix company-wide spillover, 6 levels depth per tree)
+-- Matrix Nodes Table (5-matrix company-wide spillover, 7 levels depth per tree)
 CREATE TABLE `matrix_nodes` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `package_id` INT NOT NULL,
     `user_id` INT NOT NULL,
     `parent_id` INT DEFAULT NULL,
     `depth` INT NOT NULL DEFAULT 1,
-    `position_index` INT NOT NULL DEFAULT 1, -- 1, 2, or 3 under parent
+    `position_index` INT NOT NULL DEFAULT 1, -- 1, 2, 3, 4, or 5 under parent
     `children_count` INT NOT NULL DEFAULT 0,
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`package_id`) REFERENCES `packages`(`id`) ON DELETE CASCADE,

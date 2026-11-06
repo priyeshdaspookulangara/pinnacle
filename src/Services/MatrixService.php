@@ -20,7 +20,7 @@ class MatrixService {
     }
 
     /**
-     * Enrolls or purchases a package for a user and places them in the 3-matrix via BFS.
+     * Enrolls or purchases a package for a user and places them in the 5-matrix via BFS.
      */
     public function purchaseAndPlace(int $userId, int $packageId): array {
         $package = $this->packageModel->getById($packageId);
@@ -45,7 +45,7 @@ class MatrixService {
             ");
             $stmtPkg->execute([$userId, $packageId]);
 
-            // 2. BFS Placement Algorithm for Company-Wide 3-Matrix
+            // 2. BFS Placement Algorithm for Company-Wide 5-Matrix
             $targetParent = $this->findBfsPlacementSpot($packageId);
 
             $parentId = null;
@@ -104,13 +104,13 @@ class MatrixService {
     }
 
     /**
-     * Breadth-First Search (BFS) to find the first open node (children_count < 3 and depth < 7)
+     * Breadth-First Search (BFS) to find the first open node (children_count < 5 and depth < 7)
      */
     private function findBfsPlacementSpot(int $packageId): ?array {
         $stmt = $this->db->prepare("
             SELECT id, depth, children_count
             FROM matrix_nodes
-            WHERE package_id = ? AND children_count < 3 AND depth < 7
+            WHERE package_id = ? AND children_count < 5 AND depth < 7
             ORDER BY depth ASC, id ASC
             LIMIT 1
         ");

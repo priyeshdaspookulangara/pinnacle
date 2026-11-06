@@ -27,12 +27,14 @@ $userAId = $userModel->register('userA', 'usera@example.com', 'Pass@123', 'User 
 $userBId = $userModel->register('userB', 'userb@example.com', 'Pass@123', 'User B', '2222222222', $userAId); // Sponsored by User A
 $userCId = $userModel->register('userC', 'userc@example.com', 'Pass@123', 'User C', '3333333333', $userAId);
 $userDId = $userModel->register('userD', 'userd@example.com', 'Pass@123', 'User D', '4444444444', $userAId);
-$userEId = $userModel->register('userE', 'usere@example.com', 'Pass@123', 'User E', '5555555555', $userBId);
+$userEId = $userModel->register('userE', 'usere@example.com', 'Pass@123', 'User E', '5555555555', $userAId);
+$userFId = $userModel->register('userF', 'userf@example.com', 'Pass@123', 'User F', '6666666666', $userAId);
+$userGId = $userModel->register('userG', 'userg@example.com', 'Pass@123', 'User G', '7777777777', $userBId);
 
-echo "Registered User A (#$userAId), User B (#$userBId), User C (#$userCId), User D (#$userDId), User E (#$userEId).\n\n";
+echo "Registered Users A to G.\n\n";
 
-// Step 2: Testing BFS Matrix Placement for Package Tier 1 (₹500)
-echo "2. Testing Package Tier 1 (₹500) BFS 3-Matrix Placement...\n";
+// Step 2: Testing BFS Matrix Placement for Package Tier 1 (₹500) in 5-Matrix
+echo "2. Testing Package Tier 1 (₹500) BFS 5-Matrix Placement...\n";
 
 // User A purchases Tier 1 -> should become Matrix Root
 $resA = $matrixService->purchaseAndPlace($userAId, 1);
@@ -42,24 +44,34 @@ assert($resA['depth'] == 1 && $resA['parent_id'] === null, "User A must be root"
 // User B purchases Tier 1 -> placed under User A (Pos 1)
 $resB = $matrixService->purchaseAndPlace($userBId, 1);
 echo "User B placed: Node ID {$resB['node_id']}, Depth {$resB['depth']}, Parent ID {$resB['parent_id']}\n";
-assert($resB['depth'] == 2 && $resB['parent_id'] == $resA['node_id'], "User B must be under User A");
+assert($resB['depth'] == 2 && $resB['parent_id'] == $resA['node_id'], "User B must be under User A (Pos 1)");
 
 // User C purchases Tier 1 -> placed under User A (Pos 2)
 $resC = $matrixService->purchaseAndPlace($userCId, 1);
 echo "User C placed: Node ID {$resC['node_id']}, Depth {$resC['depth']}, Parent ID {$resC['parent_id']}\n";
-assert($resC['depth'] == 2 && $resC['parent_id'] == $resA['node_id'], "User C must be under User A");
+assert($resC['depth'] == 2 && $resC['parent_id'] == $resA['node_id'], "User C must be under User A (Pos 2)");
 
-// User D purchases Tier 1 -> placed under User A (Pos 3) - Filling User A's 3-matrix!
+// User D purchases Tier 1 -> placed under User A (Pos 3)
 $resD = $matrixService->purchaseAndPlace($userDId, 1);
 echo "User D placed: Node ID {$resD['node_id']}, Depth {$resD['depth']}, Parent ID {$resD['parent_id']}\n";
-assert($resD['depth'] == 2 && $resD['parent_id'] == $resA['node_id'], "User D must be under User A");
+assert($resD['depth'] == 2 && $resD['parent_id'] == $resA['node_id'], "User D must be under User A (Pos 3)");
 
-// User E purchases Tier 1 -> User A has 3 children, so BFS forced spillover places User E under User B (Depth 3)!
+// User E purchases Tier 1 -> placed under User A (Pos 4)
 $resE = $matrixService->purchaseAndPlace($userEId, 1);
-echo "User E placed (Spillover): Node ID {$resE['node_id']}, Depth {$resE['depth']}, Parent ID {$resE['parent_id']}\n";
-assert($resE['depth'] == 3 && $resE['parent_id'] == $resB['node_id'], "User E must spillover under User B");
+echo "User E placed: Node ID {$resE['node_id']}, Depth {$resE['depth']}, Parent ID {$resE['parent_id']}\n";
+assert($resE['depth'] == 2 && $resE['parent_id'] == $resA['node_id'], "User E must be under User A (Pos 4)");
 
-echo "BFS Placement Verified Successfully!\n\n";
+// User F purchases Tier 1 -> placed under User A (Pos 5) - Completes User A's 5 children!
+$resF = $matrixService->purchaseAndPlace($userFId, 1);
+echo "User F placed: Node ID {$resF['node_id']}, Depth {$resF['depth']}, Parent ID {$resF['parent_id']}\n";
+assert($resF['depth'] == 2 && $resF['parent_id'] == $resA['node_id'], "User F must be under User A (Pos 5)");
+
+// User G purchases Tier 1 -> User A has 5 children, so BFS forced spillover places User G under User B (Depth 3, Pos 1)!
+$resG = $matrixService->purchaseAndPlace($userGId, 1);
+echo "User G placed (Spillover): Node ID {$resG['node_id']}, Depth {$resG['depth']}, Parent ID {$resG['parent_id']}\n";
+assert($resG['depth'] == 3 && $resG['parent_id'] == $resB['node_id'], "User G must spillover under User B in 5-matrix");
+
+echo "5-Matrix BFS Placement Verified Successfully!\n\n";
 
 // Step 3: Verify Commissions & Ledger
 echo "3. Verifying Commission Ledger & Balances...\n";
