@@ -127,7 +127,7 @@ class AdminController {
         }
 
         try {
-            $this->settingsModel->updateMany([
+            $settingsUpdates = [
                 'reserve_percentage' => (float)($_POST['reserve_percentage'] ?? 25.00),
                 'auto_upgrade_milestone_level' => (int)($_POST['auto_upgrade_milestone_level'] ?? 3),
                 'direct_sponsor_commission_percent' => (float)($_POST['direct_sponsor_commission_percent'] ?? 20.00),
@@ -142,7 +142,35 @@ class AdminController {
                 'usdt_trc20_address' => trim($_POST['usdt_trc20_address'] ?? ''),
                 'usdt_bep20_address' => trim($_POST['usdt_bep20_address'] ?? ''),
                 'usdt_inr_rate' => (float)($_POST['usdt_inr_rate'] ?? 90.00),
-            ]);
+            ];
+
+            // Handle Corporate BEP20 QR Upload
+            if (isset($_FILES['usdt_bep20_qr_file']) && $_FILES['usdt_bep20_qr_file']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['usdt_bep20_qr_file'];
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                if (in_array($ext, ['png', 'jpg', 'jpeg', 'webp'])) {
+                    $fn = 'admin_bep20_qr_' . time() . '.' . $ext;
+                    $dest = __DIR__ . '/../../public/uploads/qr/' . $fn;
+                    if (move_uploaded_file($file['tmp_name'], $dest)) {
+                        $settingsUpdates['usdt_bep20_qr'] = 'public/uploads/qr/' . $fn;
+                    }
+                }
+            }
+
+            // Handle Corporate TRC20 QR Upload
+            if (isset($_FILES['usdt_trc20_qr_file']) && $_FILES['usdt_trc20_qr_file']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['usdt_trc20_qr_file'];
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                if (in_array($ext, ['png', 'jpg', 'jpeg', 'webp'])) {
+                    $fn = 'admin_trc20_qr_' . time() . '.' . $ext;
+                    $dest = __DIR__ . '/../../public/uploads/qr/' . $fn;
+                    if (move_uploaded_file($file['tmp_name'], $dest)) {
+                        $settingsUpdates['usdt_trc20_qr'] = 'public/uploads/qr/' . $fn;
+                    }
+                }
+            }
+
+            $this->settingsModel->updateMany($settingsUpdates);
 
             // Update packages prices & commission rates if submitted
             if (isset($_POST['packages']) && is_array($_POST['packages'])) {

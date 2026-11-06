@@ -32,6 +32,57 @@ class UserController {
         require_once __DIR__ . '/../../views/user/usdt_activate.php';
     }
 
+    public function updateProfileUsdt() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            $_SESSION['error'] = "Invalid session token.";
+            header("Location: index.php?page=usdt_activate");
+            exit();
+        }
+
+        $user = currentUser();
+        $trc20 = trim($_POST['usdt_trc20_address'] ?? '');
+        $bep20 = trim($_POST['usdt_bep20_address'] ?? '');
+        $qrImagePath = null;
+
+        if (isset($_FILES['usdt_qr_file']) && $_FILES['usdt_qr_file']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['usdt_qr_file'];
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($fileInfo, $file['tmp_name']);
+            finfo_close($fileInfo);
+
+            if (!in_array($mime, $allowedTypes)) {
+                $_SESSION['error'] = "Invalid image type. Please upload a PNG, JPG, or WEBP QR code.";
+                header("Location: index.php?page=usdt_activate");
+                exit();
+            }
+
+            if ($file['size'] > 5 * 1024 * 1024) {
+                $_SESSION['error'] = "QR Code image file size must be under 5MB.";
+                header("Location: index.php?page=usdt_activate");
+                exit();
+            }
+
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $filename = 'user_' . $user['id'] . '_qr_' . time() . '.' . strtolower($ext);
+            $destination = __DIR__ . '/../../public/uploads/qr/' . $filename;
+
+            if (move_uploaded_file($file['tmp_name'], $destination)) {
+                $qrImagePath = 'public/uploads/qr/' . $filename;
+            }
+        }
+
+        $this->userModel->updateUsdtDetails($user['id'], $trc20, $bep20, $qrImagePath);
+        $_SESSION['success'] = "Your personal USDT wallet addresses and QR code have been updated successfully!";
+        header("Location: index.php?page=usdt_activate");
+        exit();
+    }
+
     public function submitUsdtPayment() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=usdt_activate");

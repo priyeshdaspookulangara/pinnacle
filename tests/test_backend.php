@@ -262,3 +262,24 @@ $activatedUser = $userModel->findById($newRegUserId);
 assert($activatedUser['status'] === 'active', "User not activated upon USDT approval!");
 assert($userModel->isPackageActive($newRegUserId, 1), "User package 1 not active upon USDT approval!");
 echo "Direct USDT Registration Payment Flow verified successfully!\n";
+
+// 10. Testing User USDT Details & QR Upload + Admin Corporate QR Code Setting
+echo "\n10. Testing User Personal USDT Details and Admin Corporate QR Code...\n";
+$testTrc = 'TX_TEST_TRC20_WALLET_ADDRESS_123';
+$testBep = '0x1234567890abcdef1234567890abcdef12345678';
+$testUserQr = 'public/uploads/qr/user_test_qr.png';
+
+$userModel->updateUsdtDetails($userAId, $testTrc, $testBep, $testUserQr);
+$updatedUserA = $userModel->findById($userAId);
+assert($updatedUserA['usdt_trc20_address'] === $testTrc, "User TRC20 address should be updated");
+assert($updatedUserA['usdt_bep20_address'] === $testBep, "User BEP20 address should be updated");
+assert($updatedUserA['usdt_qr_image'] === $testUserQr, "User QR image path should be updated");
+echo "User personal USDT addresses and QR path verified successfully!\n";
+
+// Test Admin Corporate QR code settings
+$settingsModel->set('usdt_trc20_qr', 'public/uploads/qr/admin_trc20_custom.png');
+$settingsModel->set('usdt_bep20_qr', 'public/uploads/qr/admin_bep20_custom.png');
+$usdtSettings = $usdtModel->getSettings();
+assert($usdtSettings['trc20_qr'] === 'public/uploads/qr/admin_trc20_custom.png', "Admin TRC20 QR setting must be updated");
+assert($usdtSettings['bep20_qr'] === 'public/uploads/qr/admin_bep20_custom.png', "Admin BEP20 QR setting must be updated");
+echo "Admin corporate USDT QR settings verified successfully!\n";

@@ -22,6 +22,9 @@ CREATE TABLE `users` (
     `password` VARCHAR(255) NOT NULL,
     `full_name` VARCHAR(100) NOT NULL,
     `phone` VARCHAR(20) DEFAULT NULL,
+    usdt_trc20_address VARCHAR(120) NULL,
+    usdt_bep20_address VARCHAR(120) NULL,
+    usdt_qr_image VARCHAR(255) NULL,
     `role` ENUM('admin', 'user') NOT NULL DEFAULT 'user',
     `sponsor_id` INT DEFAULT NULL,
     `wallet_balance` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
@@ -166,6 +169,8 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('matrix_level_8_percent', '1.00', 'Matrix level 8 payout percentage'),
 ('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'USDT TRC20 Deposit Wallet Address'),
 ('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14', 'USDT BEP20 Deposit Wallet Address'),
+('usdt_trc20_qr', 'public/assets/images/usdt_bep20_qr_clean.png', 'USDT TRC20 QR Code Image'),
+('usdt_bep20_qr', 'public/assets/images/usdt_bep20_qr_clean.png', 'USDT BEP20 QR Code Image'),
 ('usdt_inr_rate', '90.00', '1 USDT conversion rate in INR (₹)');
 
 -- Create Default Company Admin User (Password: Admin@123456)

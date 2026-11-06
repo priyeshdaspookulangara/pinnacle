@@ -177,6 +177,8 @@
 <script>
 const regTrc20 = "<?= htmlspecialchars($trc20Address ?? '') ?>";
 const regBep20 = "<?= htmlspecialchars($bep20Address ?? '') ?>";
+const regTrc20Qr = "<?= htmlspecialchars($trc20Qr ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>";
+const regBep20Qr = "<?= htmlspecialchars($bep20Qr ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>";
 const regRate = <?= (float)($usdtRate ?? 90) ?>;
 
 function updateRegCalculation() {
@@ -198,10 +200,13 @@ function updateRegNetwork() {
     label.innerText = network;
     const warn = document.getElementById('regNetworkWarn');
     if (warn) warn.innerText = network;
+    const qrImg = document.getElementById('regQrImage');
     if (network === 'TRC20') {
         addressInput.value = regTrc20;
+        if (qrImg) qrImg.src = regTrc20Qr;
     } else {
         addressInput.value = regBep20;
+        if (qrImg) qrImg.src = regBep20Qr;
     }
 }
 

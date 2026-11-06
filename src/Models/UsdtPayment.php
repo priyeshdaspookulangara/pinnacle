@@ -18,6 +18,8 @@ class UsdtPayment {
         return [
             'trc20_address' => $this->settings->get('usdt_trc20_address') ?: 'TYDzpSLtq8X2yB33x9v2QG2H1234567890',
             'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x572790c26FC062C247D0e1797D646F20a093AE14',
+            'trc20_qr' => $this->settings->get('usdt_trc20_qr') ?: 'public/assets/images/usdt_bep20_qr_clean.png',
+            'bep20_qr' => $this->settings->get('usdt_bep20_qr') ?: 'public/assets/images/usdt_bep20_qr_clean.png',
             'inr_rate' => (float)($this->settings->get('usdt_inr_rate') ?: 90.00),
         ];
     }

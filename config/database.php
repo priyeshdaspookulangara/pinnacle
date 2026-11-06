@@ -22,6 +22,8 @@ class Database {
 
             try {
                 self::$instance = new PDO($dsn, $username, $password, $options);
+                // Ensure required tables and columns exist automatically on remote/live servers
+                self::ensureTables(self::$instance);
             } catch (PDOException $e) {
                 http_response_code(500);
                 echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Database Connection Error - Pinnacle Hunt</title>";
@@ -47,5 +49,59 @@ class Database {
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Automatically ensure required tables and columns exist
+     * to prevent 'Table doesn't exist' or missing column errors on deployed servers
+     */
+    private static function ensureTables(PDO $pdo): void {
+        try {
+            // 1. Ensure usdt_payments table exists
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS `usdt_payments` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `user_id` INT NOT NULL,
+                    `package_id` INT NOT NULL,
+                    `amount_inr` DECIMAL(15,2) NOT NULL,
+                    `amount_usdt` DECIMAL(15,2) NOT NULL,
+                    `network` VARCHAR(20) NOT NULL DEFAULT 'TRC20',
+                    `wallet_address` VARCHAR(255) NOT NULL,
+                    `txid` VARCHAR(255) DEFAULT NULL,
+                    `status` ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+                    `admin_notes` TEXT DEFAULT NULL,
+                    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+
+            // 2. Ensure users table has USDT personal columns
+            $cols = $pdo->query("SHOW COLUMNS FROM `users` LIKE 'usdt_trc20_address'")->fetchAll();
+            if (empty($cols)) {
+                $pdo->exec("ALTER TABLE `users` ADD COLUMN `usdt_trc20_address` VARCHAR(120) NULL AFTER `phone`");
+            }
+
+            $colsBep = $pdo->query("SHOW COLUMNS FROM `users` LIKE 'usdt_bep20_address'")->fetchAll();
+            if (empty($colsBep)) {
+                $pdo->exec("ALTER TABLE `users` ADD COLUMN `usdt_bep20_address` VARCHAR(120) NULL AFTER `usdt_trc20_address`");
+            }
+
+            $colsQr = $pdo->query("SHOW COLUMNS FROM `users` LIKE 'usdt_qr_image'")->fetchAll();
+            if (empty($colsQr)) {
+                $pdo->exec("ALTER TABLE `users` ADD COLUMN `usdt_qr_image` VARCHAR(255) NULL AFTER `usdt_bep20_address`");
+            }
+
+            // 3. Ensure corporate USDT settings exist
+            $pdo->exec("
+                INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
+                ('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'USDT TRC20 Deposit Wallet Address'),
+                ('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14', 'USDT BEP20 Deposit Wallet Address'),
+                ('usdt_trc20_qr', 'public/assets/images/usdt_bep20_qr_clean.png', 'USDT TRC20 QR Code Image'),
+                ('usdt_bep20_qr', 'public/assets/images/usdt_bep20_qr_clean.png', 'USDT BEP20 QR Code Image'),
+                ('usdt_inr_rate', '90.00', '1 USDT conversion rate in INR (₹)');
+            ");
+        } catch (Throwable $t) {
+            // Silently allow if permissions prevent DDL
+        }
     }
 }

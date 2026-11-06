@@ -27,6 +27,15 @@ class Settings {
         return $val !== false ? $val : $default;
     }
 
+    public function set(string $key, $value): bool {
+        $stmt = $this->db->prepare("
+            INSERT INTO settings (setting_key, setting_value)
+            VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)
+        ");
+        return $stmt->execute([$key, (string)$value]);
+    }
+
     public function updateMany(array $settings): bool {
         $this->db->beginTransaction();
         try {

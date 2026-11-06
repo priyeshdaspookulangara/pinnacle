@@ -24,6 +24,9 @@ if ($action === 'login') {
 } elseif ($action === 'submit_usdt_payment') {
     $userController = new UserController();
     $userController->submitUsdtPayment();
+} elseif ($action === 'update_profile_usdt') {
+    $userController = new UserController();
+    $userController->updateProfileUsdt();
 } elseif ($action === 'request_withdrawal') {
     $userController = new UserController();
     $userController->requestWithdrawal();

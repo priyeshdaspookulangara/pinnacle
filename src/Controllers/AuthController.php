@@ -102,6 +102,8 @@ class AuthController {
         $settingsModel = new Settings();
         $trc20Address = $settingsModel->get('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890');
         $bep20Address = $settingsModel->get('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14');
+        $trc20Qr = $settingsModel->get('usdt_trc20_qr', 'public/assets/images/usdt_bep20_qr_clean.png');
+        $bep20Qr = $settingsModel->get('usdt_bep20_qr', 'public/assets/images/usdt_bep20_qr_clean.png');
         $usdtRate = (float)$settingsModel->get('usdt_inr_rate', 90.00);
 
         require_once __DIR__ . '/../../views/auth/register.php';

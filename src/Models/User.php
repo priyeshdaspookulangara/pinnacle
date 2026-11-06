@@ -71,6 +71,16 @@ class User {
         return $stmt->fetchAll();
     }
 
+    public function updateUsdtDetails(int $userId, ?string $trc20, ?string $bep20, ?string $qrImage = null): bool {
+        if ($qrImage !== null) {
+            $stmt = $this->db->prepare("UPDATE users SET usdt_trc20_address = ?, usdt_bep20_address = ?, usdt_qr_image = ? WHERE id = ?");
+            return $stmt->execute([$trc20, $bep20, $qrImage, $userId]);
+        } else {
+            $stmt = $this->db->prepare("UPDATE users SET usdt_trc20_address = ?, usdt_bep20_address = ? WHERE id = ?");
+            return $stmt->execute([$trc20, $bep20, $userId]);
+        }
+    }
+
     public function updateMember(int $id, string $fullName, string $email, ?string $phone, float $walletBalance, float $reserveBalance, string $status, ?string $newPassword = null): bool {
         if (!in_array($status, ['active', 'inactive', 'suspended'])) {
             $status = 'active';

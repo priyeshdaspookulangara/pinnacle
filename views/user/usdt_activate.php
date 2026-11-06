@@ -87,7 +87,7 @@
                 <div class="p-4 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-5">
                     <div class="flex-shrink-0 text-center">
                         <div class="p-2 bg-white rounded-2xl inline-block shadow-md">
-                            <img src="public/assets/images/usdt_bep20_qr_clean.png" alt="Deposit QR Code" class="w-28 h-28 object-contain rounded-xl">
+                            <img id="activeQrImage" src="<?= htmlspecialchars($usdtConfig['trc20_qr'] ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>" alt="Deposit QR Code" class="w-28 h-28 object-contain rounded-xl">
                         </div>
                         <p class="text-[10px] text-gray-400 mt-1 font-semibold">Scan to Deposit</p>
                     </div>
@@ -119,8 +119,53 @@
         </div>
     </div>
 
-    <!-- Payment History -->
+    <!-- Right Column: User's Own USDT Details & Payment History -->
     <div class="lg:col-span-5 space-y-6">
+        <!-- User Personal USDT & QR Settings Form -->
+        <div class="glass-card rounded-3xl p-6 border border-emerald-500/20 space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                    <i data-lucide="qr-code" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white">My Personal USDT Payout Details</h3>
+                    <p class="text-xs text-gray-400">Save your addresses & QR code for fast withdrawals</p>
+                </div>
+            </div>
+
+            <form action="index.php?action=update_profile_usdt" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">My TRC20 Wallet Address</label>
+                    <input type="text" name="usdt_trc20_address" value="<?= htmlspecialchars($user['usdt_trc20_address'] ?? '') ?>" placeholder="T..." class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-white text-xs font-mono focus:border-brand-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">My BEP20 Wallet Address</label>
+                    <input type="text" name="usdt_bep20_address" value="<?= htmlspecialchars($user['usdt_bep20_address'] ?? '') ?>" placeholder="0x..." class="w-full px-3.5 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-white text-xs font-mono focus:border-brand-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Upload My USDT QR Code</label>
+                    <input type="file" name="usdt_qr_file" accept="image/png,image/jpeg,image/webp" class="w-full text-xs text-gray-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-gray-800 file:text-brand-400 hover:file:bg-gray-700 cursor-pointer">
+                </div>
+
+                <?php if (!empty($user['usdt_qr_image'])): ?>
+                    <div class="p-3 bg-gray-950 rounded-2xl border border-gray-800 flex items-center gap-3">
+                        <img src="<?= htmlspecialchars($user['usdt_qr_image']) ?>" alt="My QR Code" class="w-16 h-16 object-contain rounded-lg border border-gray-700 bg-white p-1">
+                        <div class="text-xs">
+                            <span class="text-emerald-400 font-bold block">Current QR Code</span>
+                            <span class="text-[10px] text-gray-500 break-all"><?= htmlspecialchars(basename($user['usdt_qr_image'])) ?></span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-brand-400 hover:text-white font-bold text-xs transition border border-gray-700 flex items-center justify-center gap-2">
+                    <i data-lucide="save" class="w-4 h-4"></i> Save My USDT & QR Details
+                </button>
+            </form>
+        </div>
         <div class="glass-card rounded-3xl p-6 border border-gray-800 space-y-4">
             <h3 class="text-base font-bold text-white flex items-center gap-2">
                 <i data-lucide="history" class="w-5 h-5 text-gray-400"></i> My USDT Payment History
@@ -159,17 +204,22 @@
 <script>
 const trc20Addr = <?= json_encode($usdtConfig['trc20_address']) ?>;
 const bep20Addr = <?= json_encode($usdtConfig['bep20_address']) ?>;
+const trc20Qr = <?= json_encode($usdtConfig['trc20_qr']) ?>;
+const bep20Qr = <?= json_encode($usdtConfig['bep20_qr']) ?>;
 const inrRate = <?= (float)$usdtConfig['inr_rate'] ?>;
 
 function switchNetwork(net) {
     const input = document.getElementById('depositAddress');
     const label = document.getElementById('networkLabel');
+    const qrImg = document.getElementById('activeQrImage');
     if (net === 'BEP20') {
         input.value = bep20Addr;
         label.innerText = 'BEP20';
+        if (qrImg) qrImg.src = bep20Qr;
     } else {
         input.value = trc20Addr;
         label.innerText = 'TRC20';
+        if (qrImg) qrImg.src = trc20Qr;
     }
 }
 
