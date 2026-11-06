@@ -151,7 +151,7 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! 
 
                     <ul class="text-xs text-gray-300 space-y-2 mb-6 border-t border-gray-800 pt-4">
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Direct Bonus: <strong class="text-white"><?= $pkg['direct_commission_percent'] ?>%</strong></li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Matrix Structure: <strong class="text-white">5-Matrix (7 Levels)</strong></li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Matrix Structure: <strong class="text-white">5-Matrix (8 Levels)</strong></li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Automated Spillover: <strong class="text-white">BFS Algorithm</strong></li>
                     </ul>
                 </div>

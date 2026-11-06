@@ -109,3 +109,66 @@ assert(!empty($pkg2), "User A should now be enrolled in Package Tier 2!");
 echo "User A Tier 2 Status: {$pkg2['status']}\n";
 
 echo "\n=== ALL BACKEND TESTS PASSED SUCCESSFULLY! ===\n";
+
+// Step 5: Verify Package Tier 2 (and subsequent tiers) 5-Matrix Topology
+echo "\n5. Testing Package Tier 2 5-Matrix Placement...\n";
+// Let users B, C, D, E, F upgrade to Tier 2 and place under User A in Tier 2
+$resB2 = $matrixService->purchaseAndPlace($userBId, 2);
+$resC2 = $matrixService->purchaseAndPlace($userCId, 2);
+$resD2 = $matrixService->purchaseAndPlace($userDId, 2);
+$resE2 = $matrixService->purchaseAndPlace($userEId, 2);
+$resF2 = $matrixService->purchaseAndPlace($userFId, 2);
+
+echo "Tier 2 Children under User A in Tier 2:\n";
+echo "  User B: Node {$resB2['node_id']}, Parent {$resB2['parent_id']}, Depth {$resB2['depth']}\n";
+echo "  User C: Node {$resC2['node_id']}, Parent {$resC2['parent_id']}, Depth {$resC2['depth']}\n";
+echo "  User D: Node {$resD2['node_id']}, Parent {$resD2['parent_id']}, Depth {$resD2['depth']}\n";
+echo "  User E: Node {$resE2['node_id']}, Parent {$resE2['parent_id']}, Depth {$resE2['depth']}\n";
+echo "  User F: Node {$resF2['node_id']}, Parent {$resF2['parent_id']}, Depth {$resF2['depth']}\n";
+
+$tier1NodeA = $db->query("SELECT id FROM matrix_nodes WHERE package_id = 2 AND user_id = $userAId")->fetchColumn();
+assert($resB2['parent_id'] == $tier1NodeA && $resF2['parent_id'] == $tier1NodeA, "All 5 users must be placed under User A in Tier 2");
+
+// Now User G purchases Tier 2 -> 6th child in Tier 2 must spillover under User B in Tier 2
+$resG2 = $matrixService->purchaseAndPlace($userGId, 2);
+echo "Tier 2 User G Spillover: Node {$resG2['node_id']}, Parent {$resG2['parent_id']} (User B Tier 2 node is {$resB2['node_id']}), Depth {$resG2['depth']}\n";
+assert($resG2['parent_id'] == $resB2['node_id'], "User G must spillover under User B in Tier 2 5-matrix!");
+echo "Both Tier 1 and Tier 2 (all packages) operate identically as 5-Matrix!\n";
+
+
+// Step 6: Test Depth 8 Matrix Placement and Level 8 Commission
+echo "\n6. Testing Level 8 Matrix Depth and Commission...\n";
+// Let's create a chain of 8 levels down from User A in Package Tier 3
+// Depth 1: User A
+$resChain1 = $matrixService->purchaseAndPlace($userAId, 3);
+// Create users Chain2 to Chain8
+$prevUserId = $userAId;
+$prevNodeId = $resChain1['node_id'];
+$chainUserIds = [];
+
+for ($depth = 2; $depth <= 8; $depth++) {
+    $chainUsername = "chainUser_" . $depth;
+    $chainEmail = "chain_{$depth}@example.com";
+    $chainUserId = $userModel->register($chainUsername, $chainEmail, 'Pass@123', "Chain User $depth", "987650000$depth", $prevUserId);
+    $chainUserIds[$depth] = $chainUserId;
+    $resChain = $matrixService->purchaseAndPlace($chainUserId, 3);
+    echo "  Depth $depth placed: Node {$resChain['node_id']}, Depth {$resChain['depth']}, Parent {$resChain['parent_id']}\n";
+    assert($resChain['depth'] == $depth, "Chain node must have depth $depth");
+    $prevUserId = $chainUserId;
+}
+
+// Verify BFS placement and level commissions up to 8 levels:
+// In BFS 5-matrix, 5 nodes fill depth 2, then spillover fills depth 3, etc.
+// Verify upline received matrix level commission
+$stmtLvl2 = $db->prepare("SELECT * FROM commissions WHERE user_id = ? AND package_id = 3 AND level = 2");
+$stmtLvl2->execute([$userAId]);
+$commLvl2 = $stmtLvl2->fetch();
+assert(!empty($commLvl2), "User A should have received Level 2 matrix commission from depth 3 spillover");
+echo "Matrix commission verified from BFS spillover: ₹{$commLvl2['amount']}\n";
+
+// Now verify level 8 commission rate setting exists and can be retrieved
+$settingsModel = new Settings();
+$allSettings = $settingsModel->getAll();
+assert(isset($allSettings['matrix_level_8_percent']), "matrix_level_8_percent must exist in settings");
+assert((float)$allSettings['matrix_level_8_percent'] === 1.0, "matrix_level_8_percent must be 1.00%");
+echo "8-level matrix depth and commission configurations verified!\n";

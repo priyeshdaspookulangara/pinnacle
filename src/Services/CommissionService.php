@@ -68,12 +68,12 @@ class CommissionService {
             }
         }
 
-        // 2. Matrix Level Commissions (up to 7 levels up)
+        // 2. Matrix Level Commissions (up to 8 levels up)
         if ($newNodeId) {
             $currentParentId = $this->getParentMatrixNodeId($newNodeId);
             $level = 1;
 
-            while ($currentParentId && $level <= 7) {
+            while ($currentParentId && $level <= 8) {
                 $parentNode = $this->getMatrixNode($currentParentId);
                 if (!$parentNode) {
                     break;

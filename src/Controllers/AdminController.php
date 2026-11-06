@@ -70,6 +70,7 @@ class AdminController {
                 'matrix_level_5_percent' => (float)($_POST['matrix_level_5_percent'] ?? 2.50),
                 'matrix_level_6_percent' => (float)($_POST['matrix_level_6_percent'] ?? 1.25),
                 'matrix_level_7_percent' => (float)($_POST['matrix_level_7_percent'] ?? 1.25),
+                'matrix_level_8_percent' => (float)($_POST['matrix_level_8_percent'] ?? 1.00),
             ]);
 
             // Update packages prices & commission rates if submitted
