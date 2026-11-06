@@ -104,6 +104,12 @@ class User {
         return $stmt->execute([$newStatus, $userId]);
     }
 
+    public function isPackageActive(int $userId, int $packageId): bool {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM user_packages WHERE user_id = ? AND package_id = ? AND status = 'active'");
+        $stmt->execute([$userId, $packageId]);
+        return (int)$stmt->fetchColumn() > 0;
+    }
+
     public function deleteMemberCompletely(int $userId): bool {
         // Prevent deleting admin #1
         if ($userId === 1) {

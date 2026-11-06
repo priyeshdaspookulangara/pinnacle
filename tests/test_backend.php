@@ -245,3 +245,20 @@ $stmtPkg->execute([$usdtUser]);
 assert($stmtPkg->fetchColumn() === 'active', "User package 1 should be active");
 
 echo "USDT Payment and Member Activation/Deactivation Flow verified successfully!\n";
+
+
+// 9. Testing Registration with Direct USDT Payment
+echo "\n9. Testing Registration with Direct USDT Payment...\n";
+$regUsername = 'reg_usdt_' . time();
+$regEmail = $regUsername . '@example.com';
+$newRegUserId = $userModel->register($regUsername, $regEmail, 'Secret@123', 'Direct USDT User', '+91 9988776655', 1);
+$usdtModel = new UsdtPayment();
+$usdtId = $usdtModel->createPayment($newRegUserId, 1, 500.00, 5.56, 'TRC20', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'REG_TXID_' . time());
+assert($usdtId > 0, "Registration USDT payment submission failed!");
+
+// Approve and verify account activation
+$usdtModel->approvePayment($usdtId, 1, 'Verified from registration');
+$activatedUser = $userModel->findById($newRegUserId);
+assert($activatedUser['status'] === 'active', "User not activated upon USDT approval!");
+assert($userModel->isPackageActive($newRegUserId, 1), "User package 1 not active upon USDT approval!");
+echo "Direct USDT Registration Payment Flow verified successfully!\n";

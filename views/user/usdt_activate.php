@@ -83,18 +83,27 @@
                     </div>
                 </div>
 
-                <!-- Deposit Address Box -->
-                <div class="space-y-2">
-                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Deposit Wallet Address (<span id="networkLabel">TRC20</span>)</label>
-                    <div class="flex items-center gap-2 bg-gray-950 p-2.5 rounded-2xl border border-gray-800">
-                        <input type="text" id="depositAddress" readonly value="<?= htmlspecialchars($usdtConfig['trc20_address']) ?>" class="w-full bg-transparent text-xs font-mono text-gray-300 focus:outline-none">
-                        <button type="button" onclick="copyAddress()" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-brand-400 hover:text-white text-xs font-bold transition flex items-center gap-1">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
-                        </button>
+                <!-- QR Code & Deposit Address Box -->
+                <div class="p-4 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-5">
+                    <div class="flex-shrink-0 text-center">
+                        <div class="p-2 bg-white rounded-2xl inline-block shadow-md">
+                            <img src="public/assets/images/usdt_bep20_qr_clean.png" alt="Deposit QR Code" class="w-28 h-28 object-contain rounded-xl">
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-1 font-semibold">Scan to Deposit</p>
                     </div>
-                    <p class="text-[10px] text-amber-400 flex items-center gap-1">
-                        <i data-lucide="alert-circle" class="w-3 h-3"></i> Send only USDT over the selected network. Other assets will be lost.
-                    </p>
+
+                    <div class="flex-1 w-full space-y-2">
+                        <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Deposit Wallet Address (<span id="networkLabel">TRC20</span>)</label>
+                        <div class="flex items-center gap-2 bg-gray-900 p-2.5 rounded-2xl border border-gray-800">
+                            <input type="text" id="depositAddress" readonly value="<?= htmlspecialchars($usdtConfig['trc20_address']) ?>" class="w-full bg-transparent text-xs font-mono text-gray-300 focus:outline-none select-all">
+                            <button type="button" onclick="copyAddress()" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-brand-400 hover:text-white text-xs font-bold transition flex items-center gap-1">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-amber-400 flex items-center gap-1">
+                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i> Only send BNB Smart Chain (BEP20) or TRON (TRC20) USDT to this address. Other assets will be lost forever.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Transaction Hash (TXID) Input -->

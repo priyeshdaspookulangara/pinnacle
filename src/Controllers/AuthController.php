@@ -3,6 +3,9 @@
 
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../Models/User.php';
+require_once __DIR__ . '/../Models/Package.php';
+require_once __DIR__ . '/../Models/Settings.php';
+require_once __DIR__ . '/../Models/UsdtPayment.php';
 
 class AuthController {
     private User $userModel;
@@ -93,6 +96,14 @@ class AuthController {
                 $sponsor = null;
             }
         }
+
+        $pkgModel = new Package();
+        $packages = $pkgModel->getAll();
+        $settingsModel = new Settings();
+        $trc20Address = $settingsModel->get('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890');
+        $bep20Address = $settingsModel->get('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14');
+        $usdtRate = (float)$settingsModel->get('usdt_inr_rate', 90.00);
+
         require_once __DIR__ . '/../../views/auth/register.php';
     }
 
@@ -115,6 +126,11 @@ class AuthController {
         $password = $_POST['password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
         $sponsorUsername = trim($_POST['sponsor'] ?? '');
+
+        // USDT payment fields during registration
+        $packageId = (int)($_POST['package_id'] ?? 1);
+        $network = strtoupper(trim($_POST['network'] ?? 'TRC20'));
+        $txid = trim($_POST['txid'] ?? '');
 
         if (empty($username) || empty($email) || empty($fullName) || empty($password)) {
             $_SESSION['error'] = "Required fields cannot be empty.";
@@ -153,8 +169,31 @@ class AuthController {
 
             $_SESSION['user_id'] = $newUserId;
             $_SESSION['user_role'] = 'user';
-            $_SESSION['success'] = "Registration successful! Please submit your USDT deposit to activate your package.";
 
+            // If a TXID was provided during registration, record the USDT deposit submission immediately
+            if (!empty($txid)) {
+                $pkgModel = new Package();
+                $pkg = $pkgModel->getById($packageId) ?: $pkgModel->getById(1);
+                $settingsModel = new Settings();
+                $usdtRate = (float)$settingsModel->get('usdt_inr_rate', 90.00);
+                if ($usdtRate <= 0) $usdtRate = 90.00;
+
+                $amountInr = (float)$pkg['price'];
+                $amountUsdt = round($amountInr / $usdtRate, 2);
+
+                $walletAddress = ($network === 'BEP20')
+                    ? $settingsModel->get('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14')
+                    : $settingsModel->get('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890');
+
+                $usdtModel = new UsdtPayment();
+                $usdtModel->createPayment($newUserId, (int)$pkg['id'], $amountInr, $amountUsdt, $network, $walletAddress, $txid);
+
+                $_SESSION['success'] = "Registration completed and USDT payment proof submitted! Your activation is currently queued for admin approval.";
+                header("Location: index.php?page=usdt_activate");
+                exit();
+            }
+
+            $_SESSION['success'] = "Registration successful! You may now submit your USDT payment proof to activate your package.";
             header("Location: index.php?page=usdt_activate");
             exit();
         } catch (Exception $e) {

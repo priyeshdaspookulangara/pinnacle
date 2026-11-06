@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/Settings.php';
+require_once __DIR__ . '/../Services/MatrixService.php';
 
 class UsdtPayment {
     private PDO $db;
@@ -16,16 +17,43 @@ class UsdtPayment {
     public function getSettings(): array {
         return [
             'trc20_address' => $this->settings->get('usdt_trc20_address') ?: 'TYDzpSLtq8X2yB33x9v2QG2H1234567890',
-            'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x71C8705a22441C316561aC5D5698A44F12345678',
+            'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x572790c26FC062C247D0e1797D646F20a093AE14',
             'inr_rate' => (float)($this->settings->get('usdt_inr_rate') ?: 90.00),
         ];
     }
 
-    public function createPayment(int $userId, int $packageId, float $amountInr, string $network, string $txid): int {
+    /**
+     * Flexible createPayment accepting:
+     * - (userId, packageId, amountInr, network, txid)
+     * - OR (userId, packageId, amountInr, amountUsdt, network, walletAddress, txid)
+     */
+    public function createPayment(int $userId, int $packageId, float $amountInr, ...$params): int {
         $config = $this->getSettings();
         $rate = $config['inr_rate'] > 0 ? $config['inr_rate'] : 90.0;
-        $amountUsdt = round($amountInr / $rate, 2);
-        $walletAddress = ($network === 'BEP20') ? $config['bep20_address'] : $config['trc20_address'];
+
+        $amountUsdt = null;
+        $network = 'TRC20';
+        $walletAddress = null;
+        $txid = null;
+
+        if (count($params) >= 1) {
+            if (is_numeric($params[0])) {
+                $amountUsdt = (float)$params[0];
+                $network = isset($params[1]) ? (string)$params[1] : 'TRC20';
+                $walletAddress = isset($params[2]) ? (string)$params[2] : null;
+                $txid = isset($params[3]) ? (string)$params[3] : null;
+            } else {
+                $network = (string)$params[0];
+                $txid = isset($params[1]) ? (string)$params[1] : null;
+            }
+        }
+
+        if ($amountUsdt === null || $amountUsdt <= 0) {
+            $amountUsdt = round($amountInr / $rate, 2);
+        }
+        if (empty($walletAddress)) {
+            $walletAddress = ($network === 'BEP20') ? $config['bep20_address'] : $config['trc20_address'];
+        }
 
         $stmt = $this->db->prepare("
             INSERT INTO usdt_payments (user_id, package_id, amount_inr, amount_usdt, network, wallet_address, txid, status)
@@ -33,6 +61,26 @@ class UsdtPayment {
         ");
         $stmt->execute([$userId, $packageId, $amountInr, $amountUsdt, $network, $walletAddress, $txid]);
         return (int)$this->db->lastInsertId();
+    }
+
+    public function approvePayment(int $paymentId, ?int $adminId = null, ?string $notes = null): bool {
+        $payment = $this->findById($paymentId);
+        if (!$payment || $payment['status'] !== 'pending') {
+            return false;
+        }
+
+        // Activate user
+        $stmtAct = $this->db->prepare("UPDATE users SET status = 'active' WHERE id = ?");
+        $stmtAct->execute([$payment['user_id']]);
+
+        // Mark payment approved
+        $this->updateStatus($paymentId, 'approved', $notes ?: 'Approved via USDT verification');
+
+        // Place user in BFS Matrix
+        $matrixService = new MatrixService();
+        $matrixService->purchaseAndPlace((int)$payment['user_id'], (int)$payment['package_id']);
+
+        return true;
     }
 
     public function getUserPayments(int $userId): array {

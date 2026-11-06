@@ -165,7 +165,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('matrix_level_7_percent', '1.25', 'Matrix level 7 payout percentage'),
 ('matrix_level_8_percent', '1.00', 'Matrix level 8 payout percentage'),
 ('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'USDT TRC20 Deposit Wallet Address'),
-('usdt_bep20_address', '0x71C8705a22441C316561aC5D5698A44F12345678', 'USDT BEP20 Deposit Wallet Address'),
+('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14', 'USDT BEP20 Deposit Wallet Address'),
 ('usdt_inr_rate', '90.00', '1 USDT conversion rate in INR (₹)');
 
 -- Create Default Company Admin User (Password: Admin@123456)
