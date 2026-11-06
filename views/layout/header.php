@@ -30,6 +30,8 @@
     </script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Standalone QR Code Engine for Dynamic QR with Amount -->
+    <script src="public/assets/js/qrcode.min.js"></script>
     <style>
         body {
             background-color: #0b0f19;

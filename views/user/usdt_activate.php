@@ -83,33 +83,55 @@
                     </div>
                 </div>
 
-                <!-- QR Code & Deposit Address Box -->
-                <div class="p-4 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-5">
+                <!-- QR Code & Deposit Address Box with Real-Time Amount Encoding -->
+                <div class="p-5 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-6">
                     <div class="flex-shrink-0 text-center">
-                        <div class="p-2 bg-white rounded-2xl inline-block shadow-md">
-                            <img id="activeQrImage" src="<?= htmlspecialchars($usdtConfig['trc20_qr'] ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>" alt="Deposit QR Code" class="w-28 h-28 object-contain rounded-xl">
+                        <div class="p-2.5 bg-white rounded-2xl inline-block shadow-lg relative group">
+                            <!-- Dynamic QR Canvas/Image with encoded amount -->
+                            <div id="dynamicQrContainer" class="flex items-center justify-center w-36 h-36"></div>
+                            <img id="staticQrFallback" src="<?= htmlspecialchars($usdtConfig['trc20_qr'] ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>" alt="Deposit QR Code" class="w-36 h-36 object-contain rounded-xl hidden">
                         </div>
-                        <p class="text-[10px] text-gray-400 mt-1 font-semibold">Scan to Deposit</p>
+                        <div class="mt-2 flex items-center justify-center gap-1">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <p class="text-[11px] text-emerald-400 font-bold font-mono">Auto-Amount QR</p>
+                        </div>
+                        <p id="qrAmountCaption" class="text-[10px] text-gray-400 font-mono mt-0.5">5.56 USDT</p>
                     </div>
 
-                    <div class="flex-1 w-full space-y-2">
-                        <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Deposit Wallet Address (<span id="networkLabel">TRC20</span>)</label>
+                    <div class="flex-1 w-full space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Deposit Wallet Address (<span id="networkLabel">TRC20</span>)</label>
+                            <span class="text-[10px] text-gray-400 font-mono">Scan via Binance / Trust Wallet</span>
+                        </div>
                         <div class="flex items-center gap-2 bg-gray-900 p-2.5 rounded-2xl border border-gray-800">
                             <input type="text" id="depositAddress" readonly value="<?= htmlspecialchars($usdtConfig['trc20_address']) ?>" class="w-full bg-transparent text-xs font-mono text-gray-300 focus:outline-none select-all">
-                            <button type="button" onclick="copyAddress()" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-brand-400 hover:text-white text-xs font-bold transition flex items-center gap-1">
+                            <button type="button" onclick="copyAddress()" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-brand-400 hover:text-white text-xs font-bold transition flex items-center gap-1 flex-shrink-0">
                                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
                             </button>
                         </div>
+                        <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-[11px] text-brand-400 flex items-center justify-between font-mono">
+                            <span>Amount Encoded in QR:</span>
+                            <span id="encodedAmountPill" class="font-extrabold text-white text-xs">5.56 USDT</span>
+                        </div>
                         <p class="text-[10px] text-amber-400 flex items-center gap-1">
-                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i> Only send BNB Smart Chain (BEP20) or TRON (TRC20) USDT to this address. Other assets will be lost forever.
+                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i> Only send BNB Smart Chain (BEP20) or TRON (TRC20) USDT to this address.
                         </p>
                     </div>
                 </div>
 
-                <!-- Transaction Hash (TXID) Input -->
-                <div class="space-y-1">
-                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Transaction Hash (TXID / Hash)</label>
-                    <input type="text" name="txid" required placeholder="Paste your blockchain transaction hash here..." class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-2xl text-white text-xs font-mono focus:border-brand-500 focus:outline-none">
+                <!-- Transaction Code (TXID) Input & Scanner Assist -->
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-[11px] font-semibold text-gray-300 uppercase tracking-wider">
+                            Receive Transaction Code / Hash (TXID) *
+                        </label>
+                        <span class="text-[10px] text-gray-400">Blockchain Reference ID</span>
+                    </div>
+                    <div class="relative">
+                        <i data-lucide="hash" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        <input type="text" name="txid" id="txidInput" required placeholder="Paste the transaction hash / code after transfer (e.g. 0xabc... or trc20...)" class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-2xl text-white text-xs font-mono focus:border-brand-500 focus:outline-none shadow-inner">
+                    </div>
+                    <p class="text-[11px] text-gray-400">Once your payment is broadcast on blockchain, enter the transaction code above to instantly submit for verification.</p>
                 </div>
 
                 <button type="submit" class="w-full py-3.5 rounded-2xl bg-brand-500 hover:bg-brand-600 text-black font-extrabold text-sm transition shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
@@ -208,27 +230,72 @@ const trc20Qr = <?= json_encode($usdtConfig['trc20_qr']) ?>;
 const bep20Qr = <?= json_encode($usdtConfig['bep20_qr']) ?>;
 const inrRate = <?= (float)$usdtConfig['inr_rate'] ?>;
 
+let currentNetwork = 'TRC20';
+let currentUsdtAmount = '5.56';
+let qrInstance = null;
+
+function renderDynamicQr() {
+    const addr = currentNetwork === 'BEP20' ? bep20Addr : trc20Addr;
+
+    // Generate blockchain payment URI with exact amount
+    let uri;
+    if (currentNetwork === 'BEP20') {
+        // Standard BSC / Ethereum URI with amount
+        uri = `ethereum:${addr}?amount=${currentUsdtAmount}`;
+    } else {
+        // TRON URI with amount and token
+        uri = `tron:${addr}?amount=${currentUsdtAmount}&token=USDT`;
+    }
+
+    const container = document.getElementById('dynamicQrContainer');
+    const fallback = document.getElementById('staticQrFallback');
+
+    if (typeof QRCode !== 'undefined' && container) {
+        container.innerHTML = '';
+        qrInstance = new QRCode(container, {
+            text: uri,
+            width: 144,
+            height: 144,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+        });
+        container.classList.remove('hidden');
+        if (fallback) fallback.classList.add('hidden');
+    } else if (fallback) {
+        fallback.src = currentNetwork === 'BEP20' ? bep20Qr : trc20Qr;
+        fallback.classList.remove('hidden');
+    }
+
+    // Update labels and badges
+    const amountCaption = document.getElementById('qrAmountCaption');
+    if (amountCaption) amountCaption.innerText = `${currentUsdtAmount} USDT (${currentNetwork})`;
+
+    const pill = document.getElementById('encodedAmountPill');
+    if (pill) pill.innerText = `${currentUsdtAmount} USDT (${currentNetwork})`;
+}
+
 function switchNetwork(net) {
+    currentNetwork = net;
     const input = document.getElementById('depositAddress');
     const label = document.getElementById('networkLabel');
-    const qrImg = document.getElementById('activeQrImage');
     if (net === 'BEP20') {
         input.value = bep20Addr;
         label.innerText = 'BEP20';
-        if (qrImg) qrImg.src = bep20Qr;
     } else {
         input.value = trc20Addr;
         label.innerText = 'TRC20';
-        if (qrImg) qrImg.src = trc20Qr;
     }
+    renderDynamicQr();
 }
 
 function calculateUsdt() {
     const select = document.getElementById('pkgSelect');
     const price = parseFloat(select.options[select.selectedIndex].getAttribute('data-price')) || 500;
-    const usdt = (price / (inrRate > 0 ? inrRate : 90)).toFixed(2);
+    currentUsdtAmount = (price / (inrRate > 0 ? inrRate : 90)).toFixed(2);
     document.getElementById('displayInr').innerText = '₹' + price.toLocaleString('en-IN', {minimumFractionDigits: 2});
-    document.getElementById('displayUsdt').innerText = usdt + ' USDT';
+    document.getElementById('displayUsdt').innerText = currentUsdtAmount + ' USDT';
+    renderDynamicQr();
 }
 
 function copyAddress() {
@@ -238,7 +305,9 @@ function copyAddress() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', calculateUsdt);
+document.addEventListener('DOMContentLoaded', () => {
+    calculateUsdt();
+});
 </script>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

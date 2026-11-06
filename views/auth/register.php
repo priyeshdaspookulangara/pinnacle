@@ -128,38 +128,51 @@
                     </div>
                 </div>
 
-                <!-- QR Code & Wallet Address Display -->
-                <div class="p-4 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-5">
+                <!-- QR Code & Wallet Address Display with Amount Encoding -->
+                <div class="p-5 rounded-2xl bg-gray-950 border border-gray-800 flex flex-col sm:flex-row items-center gap-6">
                     <div class="flex-shrink-0 text-center">
-                        <div class="p-2 bg-white rounded-2xl inline-block shadow-md">
-                            <img id="regQrImage" src="public/assets/images/usdt_bep20_qr_clean.png" alt="Deposit QR Code" class="w-32 h-32 object-contain rounded-xl">
+                        <div class="p-2.5 bg-white rounded-2xl inline-block shadow-lg">
+                            <div id="regDynamicQrContainer" class="flex items-center justify-center w-36 h-36"></div>
+                            <img id="regQrFallback" src="public/assets/images/usdt_bep20_qr_clean.png" alt="Deposit QR Code" class="w-36 h-36 object-contain rounded-xl hidden">
                         </div>
-                        <p class="text-[10px] text-gray-400 mt-1.5 font-semibold">Scan to Deposit</p>
+                        <div class="mt-2 flex items-center justify-center gap-1">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <p class="text-[11px] text-emerald-400 font-bold font-mono">Dynamic Amount QR</p>
+                        </div>
+                        <p id="regQrAmountCaption" class="text-[10px] text-gray-400 font-mono mt-0.5">5.56 USDT</p>
                     </div>
 
-                    <div class="flex-1 w-full space-y-2">
-                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                            Deposit Address (<span id="regNetworkLabel">TRC20</span>)
-                        </label>
+                    <div class="flex-1 w-full space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                                Deposit Address (<span id="regNetworkLabel">TRC20</span>)
+                            </label>
+                            <span class="text-[10px] text-gray-400 font-mono">Auto-populated</span>
+                        </div>
                         <div class="relative">
                             <input type="text" id="regWalletAddress" readonly value="<?= htmlspecialchars($trc20Address ?? '') ?>" class="w-full px-4 py-2.5 pr-20 bg-gray-900 border border-gray-800 rounded-2xl text-xs font-mono text-gray-300 select-all">
                             <button type="button" onclick="copyRegAddress()" class="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 bg-brand-500/10 hover:bg-brand-500/20 text-brand-400 border border-brand-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1">
                                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
                             </button>
                         </div>
+                        <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-[11px] text-brand-400 flex items-center justify-between font-mono">
+                            <span>Amount Encoded in QR:</span>
+                            <span id="regEncodedAmountPill" class="font-extrabold text-white text-xs">5.56 USDT</span>
+                        </div>
                         <p class="text-[11px] text-amber-400 flex items-center gap-1">
-                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i> Only send USDT (<span id="regNetworkWarn">TRC20</span>) assets to this address. Other assets will be lost forever.
+                            <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i> Only send USDT (<span id="regNetworkWarn">TRC20</span>) assets to this address.
                         </p>
                     </div>
                 </div>
 
-                <!-- Blockchain Transaction Hash -->
+                <!-- Blockchain Transaction Code / Hash (TXID) Input -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                        Transaction Hash (TXID / Reference)
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                        <span>Receive Transaction Code / Hash (TXID)</span>
+                        <span class="text-[10px] text-brand-400 lowercase">e.g. 0x... or 64-char hash</span>
                     </label>
-                    <input type="text" name="txid" placeholder="Paste your blockchain transaction hash (or leave blank to pay after registration)" class="w-full px-4 py-2.5 bg-gray-900/80 border border-gray-700/80 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition text-sm font-mono">
-                    <p class="text-[11px] text-gray-400 mt-1">If provided now, your activation will be queued immediately for admin verification upon registration.</p>
+                    <input type="text" name="txid" id="regTxidInput" placeholder="Paste your blockchain transaction code/hash here..." class="w-full px-4 py-2.5 bg-gray-900/80 border border-gray-700/80 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition text-sm font-mono">
+                    <p class="text-[11px] text-gray-400 mt-1">Provide your transaction code now for instant admin verification and immediate BFS Matrix activation.</p>
                 </div>
             </div>
 
@@ -181,6 +194,46 @@ const regTrc20Qr = "<?= htmlspecialchars($trc20Qr ?? 'public/assets/images/usdt_
 const regBep20Qr = "<?= htmlspecialchars($bep20Qr ?? 'public/assets/images/usdt_bep20_qr_clean.png') ?>";
 const regRate = <?= (float)($usdtRate ?? 90) ?>;
 
+let currentRegNetwork = 'TRC20';
+let currentRegUsdtAmount = '5.56';
+let regQrInstance = null;
+
+function renderRegDynamicQr() {
+    const addr = currentRegNetwork === 'BEP20' ? regBep20 : regTrc20;
+    let uri;
+    if (currentRegNetwork === 'BEP20') {
+        uri = `ethereum:${addr}?amount=${currentRegUsdtAmount}`;
+    } else {
+        uri = `tron:${addr}?amount=${currentRegUsdtAmount}&token=USDT`;
+    }
+
+    const container = document.getElementById('regDynamicQrContainer');
+    const fallback = document.getElementById('regQrFallback');
+
+    if (typeof QRCode !== 'undefined' && container) {
+        container.innerHTML = '';
+        regQrInstance = new QRCode(container, {
+            text: uri,
+            width: 144,
+            height: 144,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+        });
+        container.classList.remove('hidden');
+        if (fallback) fallback.classList.add('hidden');
+    } else if (fallback) {
+        fallback.src = currentRegNetwork === 'BEP20' ? regBep20Qr : regTrc20Qr;
+        fallback.classList.remove('hidden');
+    }
+
+    const caption = document.getElementById('regQrAmountCaption');
+    if (caption) caption.innerText = `${currentRegUsdtAmount} USDT (${currentRegNetwork})`;
+
+    const pill = document.getElementById('regEncodedAmountPill');
+    if (pill) pill.innerText = `${currentRegUsdtAmount} USDT (${currentRegNetwork})`;
+}
+
 function updateRegCalculation() {
     const select = document.getElementById('regPackageSelect');
     const selectedOption = select.options[select.selectedIndex];
@@ -188,26 +241,27 @@ function updateRegCalculation() {
 
     document.getElementById('regPkgPrice').innerText = '₹' + price.toLocaleString('en-IN', {minimumFractionDigits: 2});
 
-    const usdt = (price / regRate).toFixed(2);
-    document.getElementById('regUsdtAmount').innerText = usdt + ' USDT';
+    currentRegUsdtAmount = (price / (regRate > 0 ? regRate : 90)).toFixed(2);
+    document.getElementById('regUsdtAmount').innerText = currentRegUsdtAmount + ' USDT';
+    renderRegDynamicQr();
 }
 
 function updateRegNetwork() {
     const network = document.querySelector('input[name="network"]:checked').value;
+    currentRegNetwork = network;
     const addressInput = document.getElementById('regWalletAddress');
     const label = document.getElementById('regNetworkLabel');
 
     label.innerText = network;
     const warn = document.getElementById('regNetworkWarn');
     if (warn) warn.innerText = network;
-    const qrImg = document.getElementById('regQrImage');
+
     if (network === 'TRC20') {
         addressInput.value = regTrc20;
-        if (qrImg) qrImg.src = regTrc20Qr;
     } else {
         addressInput.value = regBep20;
-        if (qrImg) qrImg.src = regBep20Qr;
     }
+    renderRegDynamicQr();
 }
 
 function copyRegAddress() {
@@ -222,8 +276,10 @@ document.querySelectorAll('input[name="network"]').forEach(el => {
 });
 
 // Run once on load
-updateRegCalculation();
-updateRegNetwork();
+document.addEventListener('DOMContentLoaded', () => {
+    updateRegCalculation();
+    updateRegNetwork();
+});
 </script>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>
