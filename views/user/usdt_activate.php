@@ -71,7 +71,7 @@
                 <div class="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-2">
                     <div class="flex justify-between text-xs text-gray-400">
                         <span>Package Price (INR):</span>
-                        <span id="displayInr" class="text-white font-mono font-bold">₹500.00</span>
+                        <span id="displayInr" class="text-white font-mono font-bold">₹600.00</span>
                     </div>
                     <div class="flex justify-between text-xs text-gray-400">
                         <span>Conversion Rate:</span>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="border-t border-gray-800 pt-2 flex justify-between text-sm font-bold">
                         <span class="text-brand-400">Payable Amount (USDT):</span>
-                        <span id="displayUsdt" class="text-emerald-400 font-mono text-base">5.56 USDT</span>
+                        <span id="displayUsdt" class="text-emerald-400 font-mono text-base">6.67 USDT</span>
                     </div>
                 </div>
 
@@ -166,7 +166,7 @@ function switchNetwork(net) {
 
 function calculateUsdt() {
     const select = document.getElementById('pkgSelect');
-    const price = parseFloat(select.options[select.selectedIndex].getAttribute('data-price')) || 500;
+    const price = parseFloat(select.options[select.selectedIndex].getAttribute('data-price')) || 600;
     const usdt = (price / (inrRate > 0 ? inrRate : 90)).toFixed(2);
     document.getElementById('displayInr').innerText = '₹' + price.toLocaleString('en-IN', {minimumFractionDigits: 2});
     document.getElementById('displayUsdt').innerText = usdt + ' USDT';

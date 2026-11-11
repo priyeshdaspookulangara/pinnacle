@@ -33,8 +33,8 @@ $userGId = $userModel->register('userG', 'userg@example.com', 'Pass@123', 'User 
 
 echo "Registered Users A to G.\n\n";
 
-// Step 2: Testing BFS Matrix Placement for Package Tier 1 (₹500) in 5-Matrix
-echo "2. Testing Package Tier 1 (₹500) BFS 5-Matrix Placement...\n";
+// Step 2: Testing BFS Matrix Placement for Package Tier 1 (₹600) in 5-Matrix
+echo "2. Testing Package Tier 1 (₹600) BFS 5-Matrix Placement...\n";
 
 // User A purchases Tier 1 -> should become Matrix Root
 $resA = $matrixService->purchaseAndPlace($userAId, 1);
@@ -224,7 +224,7 @@ $chkInactive = $userModel->findById($usdtUser);
 assert($chkInactive['status'] === 'inactive', "Member should be inactive");
 
 // Submit USDT payment proof
-$payId = $usdtModel->createPayment($usdtUser, 1, 500.0, 'TRC20', 'TRX_TXID_TEST_99887766');
+$payId = $usdtModel->createPayment($usdtUser, 1, 600.0, 'TRC20', 'TRX_TXID_TEST_99887766');
 assert($payId > 0, "USDT payment record created");
 $payRec = $usdtModel->findById($payId);
 assert($payRec['status'] === 'pending', "USDT payment should be pending");

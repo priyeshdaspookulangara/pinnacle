@@ -23,15 +23,50 @@ class CommissionService {
         $settings = $this->settingsModel->getAll();
         $reservePercent = (float)($settings['reserve_percentage'] ?? 25.00);
 
+        $commissionablePrice = $packagePrice;
+        $buyer = $this->userModel->findById($buyerUserId);
+
+        // Special handling for Tier 1 Starter package:
+        // Joining amount: ₹600 (₹50 reserved for marketing, ₹50 reserved for legal)
+        // Commission base: ₹500 (Direct 20% = ₹100, Matrix calculations based on ₹500)
+        if ($packageId === 1 && $packagePrice >= 600.00) {
+            $marketingReserve = (float)($settings['tier1_marketing_reserve'] ?? 50.00);
+            $legalReserve = (float)($settings['tier1_legal_reserve'] ?? 50.00);
+            $commissionablePrice = max(0.00, $packagePrice - $marketingReserve - $legalReserve);
+
+            // Record marketing and legal reserve fee deductions in ledger
+            if ($buyer) {
+                $buyerWallet = (float)$buyer['wallet_balance'];
+                $buyerReserve = (float)$buyer['reserve_balance'];
+
+                if ($marketingReserve > 0) {
+                    $stmtLedger = $this->db->prepare("
+                        INSERT INTO ledger (user_id, type, amount, balance_after, reserve_after, description)
+                        VALUES (?, 'debit', ?, ?, ?, ?)
+                    ");
+                    $descMarketing = sprintf("Tier #%d Joining Fee Deduction: Marketing Reserve (%s)", $packageId, formatCurrency($marketingReserve));
+                    $stmtLedger->execute([$buyerUserId, $marketingReserve, $buyerWallet, $buyerReserve, $descMarketing]);
+                }
+
+                if ($legalReserve > 0) {
+                    $stmtLedger = $this->db->prepare("
+                        INSERT INTO ledger (user_id, type, amount, balance_after, reserve_after, description)
+                        VALUES (?, 'debit', ?, ?, ?, ?)
+                    ");
+                    $descLegal = sprintf("Tier #%d Joining Fee Deduction: Legal Reserve (%s)", $packageId, formatCurrency($legalReserve));
+                    $stmtLedger->execute([$buyerUserId, $legalReserve, $buyerWallet, $buyerReserve, $descLegal]);
+                }
+            }
+        }
+
         $payouts = [];
 
         // 1. Direct Sponsor Commission (No cutting / deductions in referral income: 100% credited to wallet)
-        $buyer = $this->userModel->findById($buyerUserId);
         if ($buyer && !empty($buyer['sponsor_id'])) {
             $sponsorId = (int)$buyer['sponsor_id'];
             $directPercent = (float)($settings['direct_sponsor_commission_percent'] ?? 20.00);
 
-            $grossAmount = $packagePrice * ($directPercent / 100.0);
+            $grossAmount = $commissionablePrice * ($directPercent / 100.0);
             $reserveAmount = 0.00; // No cutting in referral income
             $netAmount = $grossAmount;
 
@@ -84,7 +119,7 @@ class CommissionService {
                 $levelPercent = (float)($settings[$levelPercentKey] ?? 0.0);
 
                 if ($levelPercent > 0) {
-                    $grossAmount = $packagePrice * ($levelPercent / 100.0);
+                    $grossAmount = $commissionablePrice * ($levelPercent / 100.0);
                     $reserveAmount = $grossAmount * ($reservePercent / 100.0);
                     $netAmount = $grossAmount - $reserveAmount;
 

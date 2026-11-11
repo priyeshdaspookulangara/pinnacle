@@ -142,7 +142,7 @@ CREATE TABLE `settings` (
 
 -- Insert Default Investment Packages
 INSERT INTO `packages` (`id`, `name`, `price`, `direct_commission_percent`, `sort_order`, `status`) VALUES
-(1, 'Tier 1 - Starter', 500.00, 20.00, 1, 'active'),
+(1, 'Tier 1 - Starter', 600.00, 20.00, 1, 'active'),
 (2, 'Tier 2 - Basic', 1000.00, 20.00, 2, 'active'),
 (3, 'Tier 3 - Pro', 3000.00, 20.00, 3, 'active'),
 (4, 'Tier 4 - Advanced', 5000.00, 20.00, 4, 'active'),
@@ -155,6 +155,8 @@ INSERT INTO `packages` (`id`, `name`, `price`, `direct_commission_percent`, `sor
 INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('reserve_percentage', '25.00', 'Percentage of earnings directed to reserve pool for auto-upgrades'),
 ('auto_upgrade_milestone_level', '3', 'Level completion milestone (1-8) that triggers package auto-progression check'),
+('tier1_marketing_reserve', '50.00', 'Marketing fund reserved from Tier 1 package joining'),
+('tier1_legal_reserve', '50.00', 'Legal fund reserved from Tier 1 package joining'),
 ('direct_sponsor_commission_percent', '20.00', 'Global direct referral commission percentage'),
 ('matrix_level_1_percent', '12.50', 'Matrix level 1 payout percentage'),
 ('matrix_level_2_percent', '10.00', 'Matrix level 2 payout percentage'),
