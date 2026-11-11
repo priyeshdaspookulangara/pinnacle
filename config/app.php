@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 set_exception_handler(function ($e) {
     http_response_code(500);
-    echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Pinnacle Hunt - Server Notice</title>";
+    echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Rayon Global Impact - Server Notice</title>";
     echo "<script src='https://cdn.tailwindcss.com'></script></head>";
     echo "<body class='bg-slate-950 text-white min-h-screen flex items-center justify-center p-6'>";
     echo "<div class='max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center shadow-2xl'>";
@@ -108,17 +108,44 @@ function formatCurrency($amount): string {
     return '₹' . number_format((float)$amount, 2);
 }
 
+// Rayon Global Impact: Multi-tier 6-way proportional allocation model
+function calculatePackageAllocation(float $package_usdt, float $rate = 93.76): array {
+    $company_usdt   = $package_usdt * (11 / 35);
+    $loop_usdt      = $package_usdt * (11 / 35);
+    $referral_usdt  = $package_usdt * (5 / 35);
+    $gift_usdt      = $package_usdt * (8 / 105);
+    $legal_usdt     = $package_usdt * (8 / 105);
+    $marketing_usdt = $package_usdt * (8 / 105);
+
+    return [
+        'package_usdt'   => $package_usdt,
+        'package_inr'    => $package_usdt * $rate,
+        'company_usdt'   => $company_usdt,
+        'company_inr'    => $company_usdt * $rate,
+        'loop_usdt'      => $loop_usdt,
+        'loop_inr'       => $loop_usdt * $rate,
+        'referral_usdt'  => $referral_usdt,
+        'referral_inr'   => $referral_usdt * $rate,
+        'gift_usdt'      => $gift_usdt,
+        'gift_inr'       => $gift_usdt * $rate,
+        'legal_usdt'     => $legal_usdt,
+        'legal_inr'      => $legal_usdt * $rate,
+        'marketing_usdt' => $marketing_usdt,
+        'marketing_inr'  => $marketing_usdt * $rate,
+    ];
+}
+
 // Helper: Generate WhatsApp-formatted welcome message
 function generateWhatsAppWelcomeMessage(array $user): string {
     $fullName = $user['full_name'] ?? 'Member';
     $username = $user['username'] ?? '';
-    $sponsor = !empty($user['sponsor_username']) ? "@" . $user['sponsor_username'] : "Pinnacle Hunt Team";
+    $sponsor = !empty($user['sponsor_username']) ? "@" . $user['sponsor_username'] : "Rayon Global Impact Team";
     $appUrl = APP_URL . "/index.php?page=login";
     $referralUrl = APP_URL . "/index.php?page=register&ref=" . urlencode($username);
 
-    $msg = "🚀 *WELCOME TO PINNACLE HUNT PLATFORM!* 🚀\n\n";
+    $msg = "🚀 *WELCOME TO RAYON GLOBAL IMPACT PLATFORM!* 🚀\n\n";
     $msg .= "Dear *{$fullName}*,\n";
-    $msg .= "Congratulations and welcome to the next-generation *Pinnacle Hunt 5-Matrix Forced Spillover Ecosystem*! 🌟\n\n";
+    $msg .= "Congratulations and welcome to the next-generation *Rayon Global Impact Ecosystem*! 🌟\n\n";
     $msg .= "📋 *YOUR ACCOUNT CREDENTIALS:*\n";
     $msg .= "▪ *Username:* `{$username}`\n";
     $msg .= "▪ *Assigned Sponsor:* `{$sponsor}`\n";
@@ -128,10 +155,10 @@ function generateWhatsAppWelcomeMessage(array $user): string {
     $msg .= "🔗 *YOUR PERSONAL AFFILIATE LINK:*\n";
     $msg .= "👉 {$referralUrl}\n\n";
     $msg .= "💡 *SYSTEM HIGHLIGHTS:*\n";
-    $msg .= "• *20% Direct Sponsor Bonus* (100% credited to your wallet)\n";
-    $msg .= "• *8-Level Company-Wide 5-Matrix Spillover* topology\n";
-    $msg .= "• *Automated Package Progression* through smart reserve pool\n\n";
-    $msg .= "_For queries and support, contact your team leader or official Pinnacle Hunt administration._\n\n";
+    $msg .= "• *Direct Referral Commission (5/35 - 14.29%)* (100% credited to your wallet)\n";
+    $msg .= "• *6-Way Multi-Tier Proportional Allocation Model*\n";
+    $msg .= "• *Loop Entry Matrix Pool & Automated Package Progression*\n\n";
+    $msg .= "_For queries and support, contact your team leader or official Rayon Global Impact administration._\n\n";
     $msg .= "*Happy Earning & Growth!* 💰✨";
 
     return $msg;

@@ -7,7 +7,7 @@
 
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold tracking-tight text-white">Welcome Back</h1>
-            <p class="text-sm text-gray-400 mt-2">Sign in to manage your Pinnacle Hunt matrix & earnings</p>
+            <p class="text-sm text-gray-400 mt-2">Sign in to manage your Rayon Global Impact matrix & earnings</p>
         </div>
 
         <form action="index.php?action=login" method="POST" class="space-y-5">

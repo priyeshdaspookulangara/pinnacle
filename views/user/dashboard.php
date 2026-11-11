@@ -4,7 +4,7 @@
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
 $referralUrl = "{$protocol}://{$host}/index.php?page=register&ref=" . urlencode($user['username']);
-$shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! Register using my link: " . $referralUrl);
+$shareText = urlencode("Join Rayon Global Impact - high-performing proportional allocation matrix! Register using my link: " . $referralUrl);
 ?>
 
 <!-- Header Banner -->
@@ -121,7 +121,7 @@ $shareText = urlencode("Join Pinnacle Hunt - high-performing 5-Matrix platform! 
                 <a href="https://api.whatsapp.com/send?text=<?= $shareText ?>" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1.5 transition">
                     <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp
                 </a>
-                <a href="https://t.me/share/url?url=<?= urlencode($referralUrl) ?>&text=<?= urlencode("Join Pinnacle Hunt!") ?>" target="_blank" class="px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 text-xs font-semibold flex items-center gap-1.5 transition">
+                <a href="https://t.me/share/url?url=<?= urlencode($referralUrl) ?>&text=<?= urlencode("Join Rayon Global Impact!") ?>" target="_blank" class="px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 text-xs font-semibold flex items-center gap-1.5 transition">
                     <i data-lucide="send" class="w-3.5 h-3.5"></i> Telegram
                 </a>
                 <a href="https://twitter.com/intent/tweet?text=<?= $shareText ?>" target="_blank" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 text-xs font-semibold flex items-center gap-1.5 transition">

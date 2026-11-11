@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinnacle Hunt - High-Performance BFS Matrix Platform</title>
+    <title>Rayon Global Impact - Multi-Tier Proportional Allocation Matrix Platform</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -57,10 +57,10 @@
         <!-- Brand Logo -->
         <a href="index.php" class="flex items-center gap-3 px-2 py-1 group">
             <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center font-extrabold text-black text-xl shadow-lg group-hover:scale-105 transition-transform">
-                P
+                R
             </div>
             <span class="font-extrabold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-brand-400">
-                PINNACLE<span class="text-brand-500">HUNT</span>
+                RAYON<span class="text-brand-500">IMPACT</span>
             </span>
         </a>
 
@@ -146,7 +146,7 @@
                     </button>
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Pinnacle Hunt Portal</span>
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Rayon Global Impact</span>
                     </div>
                 </div>
 
@@ -168,7 +168,7 @@
             <div class="space-y-6">
                 <div class="flex items-center justify-between">
                     <a href="index.php" class="font-extrabold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-brand-400">
-                        PINNACLE<span class="text-brand-500">HUNT</span>
+                        RAYON<span class="text-brand-500">IMPACT</span>
                     </a>
                     <button onclick="document.getElementById('mobileSidebar').classList.add('hidden')" class="text-gray-400 hover:text-white">
                         <i data-lucide="x" class="w-6 h-6"></i>
@@ -203,10 +203,10 @@
         <div class="flex items-center justify-between h-16">
             <a href="index.php" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center font-extrabold text-black text-xl shadow-lg group-hover:scale-105 transition-transform">
-                    P
+                    R
                 </div>
                 <span class="font-extrabold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-brand-400">
-                    PINNACLE<span class="text-brand-500">HUNT</span>
+                    RAYON<span class="text-brand-500">IMPACT</span>
                 </span>
             </a>
 

@@ -79,7 +79,7 @@
                     </div>
                     <div class="border-t border-gray-800 pt-2 flex justify-between text-sm font-bold">
                         <span class="text-brand-400">Payable Amount (USDT):</span>
-                        <span id="displayUsdt" class="text-emerald-400 font-mono text-base">6.67 USDT</span>
+                        <span id="displayUsdt" class="text-emerald-400 font-mono text-base">6.40 USDT</span>
                     </div>
                 </div>
 
@@ -167,7 +167,7 @@ function switchNetwork(net) {
 function calculateUsdt() {
     const select = document.getElementById('pkgSelect');
     const price = parseFloat(select.options[select.selectedIndex].getAttribute('data-price')) || 600;
-    const usdt = (price / (inrRate > 0 ? inrRate : 90)).toFixed(2);
+    const usdt = (price / (inrRate > 0 ? inrRate : 93.76)).toFixed(2);
     document.getElementById('displayInr').innerText = '₹' + price.toLocaleString('en-IN', {minimumFractionDigits: 2});
     document.getElementById('displayUsdt').innerText = usdt + ' USDT';
 }

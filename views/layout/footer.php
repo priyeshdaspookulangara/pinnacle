@@ -3,7 +3,7 @@
 <footer class="border-t border-gray-800 glass-card mt-auto py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400 gap-4">
         <div class="flex items-center gap-2">
-            <span class="font-bold text-gray-300">Pinnacle Hunt</span> &copy; 2026. All rights reserved. Built with 5-Matrix BFS Forced Spillover Engine.
+            <span class="font-bold text-gray-300">Rayon Global Impact</span> &copy; 2026. All rights reserved. Multi-Tier Proportional Allocation Model.
         </div>
         <div class="flex items-center gap-6">
             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">

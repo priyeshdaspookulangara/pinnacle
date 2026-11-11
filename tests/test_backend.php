@@ -6,7 +6,7 @@ require_once __DIR__ . '/../src/Models/User.php';
 require_once __DIR__ . '/../src/Models/Package.php';
 require_once __DIR__ . '/../src/Services/MatrixService.php';
 
-echo "=== STARTING PINNACLE HUNT BACKEND TEST SUITE ===\n\n";
+echo "=== STARTING RAYON GLOBAL IMPACT BACKEND TEST SUITE ===\n\n";
 
 $db = Database::getConnection();
 

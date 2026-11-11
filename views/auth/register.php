@@ -5,7 +5,7 @@
         <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold tracking-tight text-white">Join Pinnacle Hunt</h1>
+            <h1 class="text-3xl font-extrabold tracking-tight text-white">Join Rayon Global Impact</h1>
             <p class="text-sm text-gray-400 mt-2">Create your account and enter the 5-Matrix BFS spillover system</p>
         </div>
 

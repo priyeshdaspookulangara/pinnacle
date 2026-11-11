@@ -140,6 +140,27 @@ CREATE TABLE `settings` (
     `description` VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- System Allocation Pools (Rayon Global Impact Multi-Tier Proportional Allocation Model)
+CREATE TABLE `system_pools` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `pool_name` VARCHAR(50) NOT NULL UNIQUE,
+    `balance_usdt` DECIMAL(18,6) NOT NULL DEFAULT 0.000000,
+    `balance_inr` DECIMAL(18,2) NOT NULL DEFAULT 0.00,
+    `total_inflow_usdt` DECIMAL(18,6) NOT NULL DEFAULT 0.000000,
+    `total_inflow_inr` DECIMAL(18,2) NOT NULL DEFAULT 0.00,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Initialize System Allocation Pools
+INSERT INTO `system_pools` (`pool_name`, `balance_usdt`, `balance_inr`, `total_inflow_usdt`, `total_inflow_inr`) VALUES
+('company_share', 0.000000, 0.00, 0.000000, 0.00),
+('loop_entry', 0.000000, 0.00, 0.000000, 0.00),
+('referral_income', 0.000000, 0.00, 0.000000, 0.00),
+('gift_pool', 0.000000, 0.00, 0.000000, 0.00),
+('legal_pool', 0.000000, 0.00, 0.000000, 0.00),
+('marketing_pool', 0.000000, 0.00, 0.000000, 0.00);
+
 -- Insert Default Investment Packages
 INSERT INTO `packages` (`id`, `name`, `price`, `direct_commission_percent`, `sort_order`, `status`) VALUES
 (1, 'Tier 1 - Starter', 600.00, 20.00, 1, 'active'),
@@ -168,7 +189,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('matrix_level_8_percent', '1.00', 'Matrix level 8 payout percentage'),
 ('usdt_trc20_address', 'TYDzpSLtq8X2yB33x9v2QG2H1234567890', 'USDT TRC20 Deposit Wallet Address'),
 ('usdt_bep20_address', '0x572790c26FC062C247D0e1797D646F20a093AE14', 'USDT BEP20 Deposit Wallet Address'),
-('usdt_inr_rate', '90.00', '1 USDT conversion rate in INR (₹)');
+('usdt_inr_rate', '93.76', '1 USDT benchmark conversion rate in INR (₹)');
 
 -- Create Default Company Admin User (Password: Admin@123456)
 -- Password hash generated with password_hash('Admin@123456', PASSWORD_BCRYPT)

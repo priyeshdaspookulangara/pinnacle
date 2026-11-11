@@ -17,13 +17,13 @@ class UsdtPayment {
         return [
             'trc20_address' => $this->settings->get('usdt_trc20_address') ?: 'TYDzpSLtq8X2yB33x9v2QG2H1234567890',
             'bep20_address' => $this->settings->get('usdt_bep20_address') ?: '0x572790c26FC062C247D0e1797D646F20a093AE14',
-            'inr_rate' => (float)($this->settings->get('usdt_inr_rate') ?: 90.00),
+            'inr_rate' => (float)($this->settings->get('usdt_inr_rate') ?: 93.76),
         ];
     }
 
     public function createPayment(int $userId, int $packageId, float $amountInr, string $network, string $txid): int {
         $config = $this->getSettings();
-        $rate = $config['inr_rate'] > 0 ? $config['inr_rate'] : 90.0;
+        $rate = $config['inr_rate'] > 0 ? $config['inr_rate'] : 93.76;
         $amountUsdt = round($amountInr / $rate, 2);
         $walletAddress = ($network === 'BEP20') ? $config['bep20_address'] : $config['trc20_address'];
 

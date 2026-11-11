@@ -66,10 +66,10 @@
             <p class="text-xs text-gray-400 mt-1">Share your link directly across popular platforms to get direct referral commissions.</p>
         </div>
         <div class="flex items-center gap-3">
-            <a href="https://api.whatsapp.com/send?text=Join%20Pinnacle%20Hunt%20using%20my%20referral%20link:%20<?= urlencode(APP_URL . '/index.php?page=register&ref=' . $user['username']) ?>" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 font-bold text-xs transition flex items-center gap-2">
+            <a href="https://api.whatsapp.com/send?text=Join%20Rayon%20Global%20Impact%20using%20my%20referral%20link:%20<?= urlencode(APP_URL . '/index.php?page=register&ref=' . $user['username']) ?>" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 font-bold text-xs transition flex items-center gap-2">
                 <i data-lucide="message-square" class="w-4 h-4"></i> WhatsApp
             </a>
-            <a href="https://t.me/share/url?url=<?= urlencode(APP_URL . '/index.php?page=register&ref=' . $user['username']) ?>&text=Join%20Pinnacle%20Hunt!" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-400 border border-sky-500/30 font-bold text-xs transition flex items-center gap-2">
+            <a href="https://t.me/share/url?url=<?= urlencode(APP_URL . '/index.php?page=register&ref=' . $user['username']) ?>&text=Join%20Rayon%20Global%20Impact!" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-400 border border-sky-500/30 font-bold text-xs transition flex items-center gap-2">
                 <i data-lucide="send" class="w-4 h-4"></i> Telegram
             </a>
         </div>
